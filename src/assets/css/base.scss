@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: Manrope;
+  font-display: swap;
+  src: url("../fonts/manrope/Manrope-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Manrope Light";
+  font-display: fallback;
+  src: url("../fonts//manrope/Manrope-Light.ttf");
+}
+
+@font-face {
+  font-family: "Manrope Medium";
+  font-display: fallback;
+  src: url("../fonts//manrope/Manrope-Medium.ttf");
+}
+
+@font-face {
+  font-family: "Manrope SemiBold";
+  font-display: fallback;
+  src: url("../fonts/manrope/Manrope-SemiBold.ttf");
+}
+
+@font-face {
+  font-family: "Manrope Bold";
+  font-display: fallback;
+  src: url("../fonts/manrope/Manrope-Bold.ttf");
+}
+
+@font-face {
+  font-family: "Manrope ExtraBold";
+  font-display: fallback;
+  src: url("../fonts/manrope/Manrope-ExtraBold.ttf");
+}
+
+/* Poppins */
+
+@font-face {
+  font-family: Poppins;
+  font-display: fallback;
+  src: url("../fonts/poppins/Poppins-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Poppins Light";
+  font-display: fallback;
+  src: url("../fonts/poppins/Poppins-Light.ttf");
+}
+
+@font-face {
+  font-family: "Poppins Medium";
+  font-display: fallback;
+  src: url("../fonts/poppins/Poppins-Medium.ttf");
+}
+
+@font-face {
+  font-family: "Poppins SemiBold";
+  font-display: fallback;
+  src: url("../fonts/poppins/Poppins-SemiBold.ttf");
+}
+
+@font-face {
+  font-family: "Poppins Bold";
+  font-display: fallback;
+  src: url("../fonts/poppins/Poppins-Bold.ttf");
+}
+
+:root {
+  --gray-text: #676570;
+  font-family: Poppins, sans-serif;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Manrope;
+}
