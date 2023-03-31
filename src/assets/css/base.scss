@@ -72,11 +72,13 @@
 
 :root {
   --gray-text: #676570;
+  --primary-black: #3e3e3e;
+  --primary-error: red;
+  --primary-light-gray: #edf0f5;
+  --primary-blue: #2a6eec;
+  --primary-white: #edf0f5;
   font-family: Poppins, sans-serif;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: var(--primary-black);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -91,5 +93,13 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: Manrope;
+  font-family: "Manrope Bold", sans-serif;
+}
+
+.poppins-semi-bold {
+  font-family: "Poppins SemiBold", sans-serif;
+}
+
+input:focus {
+  outline: 2px solid var(--primary-blue);
 }
