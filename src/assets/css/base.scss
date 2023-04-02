@@ -77,6 +77,7 @@
   --primary-light-gray: #edf0f5;
   --primary-blue: #2a6eec;
   --primary-white: #edf0f5;
+  --red-error: #ff3030;
   font-family: Poppins, sans-serif;
   color: var(--primary-black);
 
@@ -100,6 +101,20 @@ h6 {
   font-family: "Poppins SemiBold", sans-serif;
 }
 
+.manrope-extrabold {
+  font-family: "Manrope ExtraBold", sans-serif;
+}
+
 input:focus {
   outline: 2px solid var(--primary-blue);
+}
+
+a {
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.border-error {
+  border: 2px solid var(--red-error);
 }

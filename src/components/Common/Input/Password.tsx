@@ -9,9 +9,16 @@ type PasswordProps = {
   error?: FieldError;
   name: string;
   labelText: string;
+  forgotPasswordLink?: boolean;
 };
 
-const Password = ({ register, error, name, labelText }: PasswordProps) => {
+const Password = ({
+  register,
+  error,
+  name,
+  labelText,
+  forgotPasswordLink,
+}: PasswordProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -20,24 +27,26 @@ const Password = ({ register, error, name, labelText }: PasswordProps) => {
         <label className="pl-0.5 w-full" htmlFor={name}>
           {labelText}
         </label>
-        <Link
-          to="/esqueci-senha"
-          className="flex items-end justify-end w-full text-[var(--primary-blue)] hover:brightness-125 hover:underline text-xs"
-          tabIndex={-1}
-        >
-          Esqueceu a senha?
-        </Link>
+        {forgotPasswordLink ? (
+          <Link
+            to="/esqueci-senha"
+            className="flex items-end justify-end w-full text-[var(--primary-blue)] hover:brightness-125 text-xs"
+            tabIndex={-1}
+          >
+            Esqueceu a senha?
+          </Link>
+        ) : null}
       </div>
       <div className="relative">
         <input
           type={showPassword ? "text" : "password"}
           {...register(name)}
-          className={`w-full bg-[var(--primary-light-gray)] px-5 pr-10 py-3 border rounded-xl focus:outline--gray-500
-           border-none focus:ring-0" ${error ? "border-red-500" : ""}`}
+          className={`w-full bg-[var(--primary-light-gray)] px-5 pr-10 py-3 rounded-xl focus:outline--gray-500
+           focus:ring-0 border ${error ? "border-error" : ""}`}
         />
         <button
           type="button"
-          className="absolute top-3.5 right-2.5"
+          className="absolute top-3.5 right-2.5 hover:brightness-110"
           onClick={() => setShowPassword((prevValue) => !prevValue)}
           tabIndex={-1}
         >

@@ -7,7 +7,7 @@ interface FormErrorMessageProps {
 const FormErrorMessage = ({ error }: FormErrorMessageProps) => {
   return (
     <div>
-      <p className="text-error text-sm">{error}</p>
+      <span className="text-[var(--red-error)] text-xs">{error}</span>
     </div>
   );
 };
