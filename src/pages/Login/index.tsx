@@ -12,13 +12,13 @@ import Button from "../../components/Common/Button";
 import lottieLoginCartoon from "../../assets/lotties/secureLogin.json";
 
 type FormLoginUser = {
-  username: string;
+  email: string;
   password: string;
 };
 
 const Login = () => {
   const schema = z.object({
-    username: z.string().min(1, "Obrigatório"),
+    email: z.string().email("E-mail inválido.").min(1, "Obrigatório"),
     password: z.string().min(1, "Obrigatório"),
   });
 
@@ -56,9 +56,9 @@ const Login = () => {
             <div className="flex flex-col gap-3 h-full">
               <Text
                 register={register}
-                name="username"
-                error={errors.username}
-                labelText="Nome de usuário"
+                name="email"
+                error={errors.email}
+                labelText="Endereço de e-mail"
               />
               <div className="flex justify-between">
                 <Password

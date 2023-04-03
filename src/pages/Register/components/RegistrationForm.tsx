@@ -1,31 +1,37 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { AxiosError } from "axios";
+import { useMutation } from "@tanstack/react-query";
 import Button from "../../../components/Common/Button";
 import Text from "../../../components/Common/Input/Text";
 import Password from "../../../components/Common/Input/Password";
+import { RegisterUserData } from "../../../services/User/types";
+import { RegisterUser } from "../../../services/User";
+import FormErrorMessage from "../../../components/FormErrorMessage";
+import { AuthContext } from "../../../contexts/authContext";
 
-type FormRegisterUser = {
-  name: string;
-  username: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
+type ApiError = {
+  statusCode: number;
+  message: string;
 };
 
 const RegistrationForm = () => {
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const { handleLogin } = useContext(AuthContext);
+
   const schema = z
     .object({
-      name: z
+      firstName: z
         .string()
         .min(1, "Obrigatório.")
         .max(255, `Campo "Nome" pode ter no máximo 255 caracteres.`),
-      username: z
+      lastName: z
         .string()
         .min(1, "Obrigatório.")
-        .max(255, `Campo "Nome de usuário" pode ter no máximo 255 caracteres.`),
+        .max(255, `Campo "Sobrenome" pode ter no máximo 255 caracteres.`),
       email: z
         .string()
         .email({ message: "E-mail inválido." })
@@ -57,31 +63,41 @@ const RegistrationForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormRegisterUser>({
+  } = useForm<RegisterUserData>({
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = handleSubmit(() => {
-    //
+  const mutation = useMutation({
+    mutationFn: RegisterUser,
+    onSuccess: async () => setErrorMessage(null),
+    onError: (err: AxiosError) => {
+      const errorData = err.response?.data as ApiError;
+      setErrorMessage(errorData.message);
+    },
+  });
+
+  const onSubmit = handleSubmit(async (formData: RegisterUserData) => {
+    await mutation.mutateAsync(formData);
+    handleLogin({ email: formData.email, password: formData.password });
   });
 
   return (
     <form
       onSubmit={onSubmit}
-      className="h-full flex flex-col justify-between w-full max-w-xs md:px-3"
+      className="h-full flex flex-col justify-between w-full max-w-[350px] md:px-3"
     >
       <div className="flex flex-col gap-3 h-full">
         <Text
           register={register}
-          name="name"
-          error={errors.name}
-          labelText="Nome completo"
+          name="firstName"
+          error={errors.firstName}
+          labelText="Nome"
         />
         <Text
           register={register}
-          name="username"
-          error={errors.username}
-          labelText="Nome de usuário"
+          name="lastName"
+          error={errors.lastName}
+          labelText="Sobrenome"
         />
         <Text
           register={register}
@@ -101,8 +117,13 @@ const RegistrationForm = () => {
           name="confirmPassword"
           labelText="Confirmar senha"
         />
-        <div className="mt-5">
-          <Button submit>Cadastrar</Button>
+        <div className="mt-5 flex flex-col gap-5">
+          {mutation.isError ? (
+            <FormErrorMessage error={errorMessage as string} serverValidation />
+          ) : null}
+          <Button submit loading={mutation.isLoading}>
+            Cadastrar
+          </Button>
         </div>
       </div>
       <span className="text-xs mb-2 text-center mt-6">

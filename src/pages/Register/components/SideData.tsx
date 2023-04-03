@@ -11,7 +11,7 @@ import mobileUserRegstration from "../../../assets/lotties/userRegistration.json
 const SideData = () => {
   return (
     <>
-      <div className="hidden md:flex flex-col flex-1 items-center md:pt-16 md:bg-[var(--primary-blue)] rounded-l-xl">
+      <div className="hidden md:flex flex-col flex-1 items-center md:bg-[var(--primary-blue)] rounded-l-xl">
         <AutoRotateCarousel
           items={[
             <MelhorAdministracao key="melhorAdministracao" />,
