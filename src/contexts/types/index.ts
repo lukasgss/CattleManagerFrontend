@@ -13,6 +13,7 @@ export type UserData = {
 
 export type AuthContextData = {
   authenticated: boolean;
+  errorMessage: string | null;
   handleLogin: (loginData: LoginUserData) => Promise<void>;
   handleLogout: () => void;
 };

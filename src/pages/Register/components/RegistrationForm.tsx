@@ -12,11 +12,7 @@ import { RegisterUserData } from "../../../services/User/types";
 import { RegisterUser } from "../../../services/User";
 import FormErrorMessage from "../../../components/FormErrorMessage";
 import { AuthContext } from "../../../contexts/authContext";
-
-type ApiError = {
-  statusCode: number;
-  message: string;
-};
+import { ApiError } from "../../../services/Api";
 
 const RegistrationForm = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);

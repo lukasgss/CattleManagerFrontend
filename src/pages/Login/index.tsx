@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import Lottie from "lottie-react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-
+import { AuthContext } from "../../contexts/authContext";
+import { LoginUserData } from "../../services/User/types";
+import FormErrorMessage from "../../components/FormErrorMessage";
 import Text from "../../components/Common/Input/Text";
 import Password from "../../components/Common/Input/Password";
 import Button from "../../components/Common/Button";
@@ -17,6 +19,9 @@ type FormLoginUser = {
 };
 
 const Login = () => {
+  const { handleLogin, errorMessage } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
+
   const schema = z.object({
     email: z.string().email("E-mail inválido.").min(1, "Obrigatório"),
     password: z.string().min(1, "Obrigatório"),
@@ -30,8 +35,10 @@ const Login = () => {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = handleSubmit(() => {
-    //
+  const onSubmit = handleSubmit(async (loginData: LoginUserData) => {
+    setLoading(true);
+    await handleLogin(loginData);
+    setLoading(false);
   });
 
   return (
@@ -69,8 +76,14 @@ const Login = () => {
                   forgotPasswordLink
                 />
               </div>
-              <div className="mt-5">
-                <Button submit>Login</Button>
+              <div className="mt-5 flex flex-col gap-5">
+                <FormErrorMessage
+                  error={errorMessage as string}
+                  serverValidation
+                />
+                <Button submit loading={loading}>
+                  Login
+                </Button>
               </div>
             </div>
             <span className="text-xs mb-2 text-center mt-8">
