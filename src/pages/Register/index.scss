@@ -1,0 +1,13 @@
+.showupAnimation {
+  animation: elementShowup 0.15s linear forwards;
+}
+
+@keyframes elementShowup {
+  0% {
+    transform: translateX(-25%);
+  }
+  100% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}

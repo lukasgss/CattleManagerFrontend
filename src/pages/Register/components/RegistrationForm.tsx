@@ -102,7 +102,7 @@ const RegistrationForm = () => {
           labelText="Confirmar senha"
         />
         <div className="mt-5">
-          <Button submit>Login</Button>
+          <Button submit>Cadastrar</Button>
         </div>
       </div>
       <span className="text-xs mb-2 text-center mt-6">

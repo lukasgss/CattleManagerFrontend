@@ -2,9 +2,11 @@ import React from "react";
 
 import milkingCow from "../../../assets/img/milkingCow.png";
 
+import "../index.scss";
+
 const MelhorManejo = () => {
   return (
-    <div className="flex flex-col gap-2.5 text-center">
+    <div className="showupAnimation flex flex-col gap-2.5 text-center">
       <img
         src={milkingCow}
         className="w-52 md:w-96 md:h-[340px] mx-auto"

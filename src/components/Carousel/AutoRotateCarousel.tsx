@@ -29,6 +29,7 @@ const AutoRotateCarousel = ({
             type="button"
             key={el.key}
             onClick={() => setCurrentSlide(idx)}
+            className="hover:brightness-125"
           >
             <div
               className={`h-1 w-9 ${

@@ -3,9 +3,11 @@ import Lottie from "lottie-react";
 
 import analyzingData from "../../../assets/lotties/analyzingData.json";
 
+import "../index.scss";
+
 const MelhorAdministracao = () => {
   return (
-    <div className="flex flex-col gap-2.5 text-center">
+    <div className="showupAnimation flex flex-col gap-2.5 text-center">
       <Lottie
         animationData={analyzingData}
         className="w-52 md:w-96 md:h-[340px] mx-auto"

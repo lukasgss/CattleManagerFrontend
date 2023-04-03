@@ -1,11 +1,13 @@
 import React from "react";
 import Lottie from "lottie-react";
 
+import "../index.scss";
+
 import digitalData from "../../../assets/lotties/digitalData.json";
 
 const AcessoRapidoDados = () => {
   return (
-    <div className="flex flex-col gap-2.5 text-center">
+    <div className="showupAnimation flex flex-col gap-2.5 text-center">
       <Lottie
         animationData={digitalData}
         className="w-52 md:w-96 md:h-[340px] mx-auto"
