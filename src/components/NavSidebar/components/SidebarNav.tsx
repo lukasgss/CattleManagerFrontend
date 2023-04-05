@@ -23,7 +23,7 @@ const SidebarNav = ({
   return (
     <nav
       ref={elementRef}
-      className={`h-screen transition-width duration-200 ${
+      className={`h-screen transition-width duration-200 fixed lg:relative z-40 ${
         sidebarOpen ? "" : "!w-0"
       } ${sidebarCollapsed ? "w-[225px]" : "w-[90px]"}`}
     >

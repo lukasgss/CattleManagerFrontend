@@ -52,7 +52,7 @@ const Sidebar = () => {
     return null;
   }
 
-  return screenWidth < 768 ? (
+  return screenWidth < 1024 ? (
     <>
       <DetectClickOutside
         onClickOutside={handleClickOutsideSideNav}
