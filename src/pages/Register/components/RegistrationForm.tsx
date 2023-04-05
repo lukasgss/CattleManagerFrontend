@@ -11,7 +11,7 @@ import Password from "../../../components/Common/Input/Password";
 import { RegisterUserData } from "../../../services/User/types";
 import { RegisterUser } from "../../../services/User";
 import FormErrorMessage from "../../../components/FormErrorMessage";
-import { AuthContext } from "../../../contexts/authContext";
+import { AuthContext } from "../../../contexts/AuthContext/authContext";
 import { ApiError } from "../../../services/Api";
 
 const RegistrationForm = () => {

@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AuthContext } from "../../contexts/authContext";
+import { AuthContext } from "../../contexts/AuthContext/authContext";
 import { LoginUserData } from "../../services/User/types";
 import FormErrorMessage from "../../components/FormErrorMessage";
 import Text from "../../components/Common/Input/Text";
@@ -42,7 +42,7 @@ const Login = () => {
   });
 
   return (
-    <div className="w-full h-screen flex justify-center items-center bg-[var(--primary-white)]">
+    <div className="w-full min-h-[calc(100vh-50px)] mt-[50px] flex justify-center items-center bg-[var(--primary-white)]">
       <div
         className="w-[85%] bg-white px-7 py-2 my-5 shadow-lg md:p-0 mx-5 rounded-xl md:flex
        md:flex-rw-reverse md:justify-around md:w-full md:max-w-5xl md:h-[550px]"

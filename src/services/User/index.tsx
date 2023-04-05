@@ -13,3 +13,9 @@ export const RegisterUser = async (
 ): Promise<AxiosResponse<UserData>> => {
   return API.post("/users/register", registerUserData);
 };
+
+export const GetUserData = async (
+  userId: string
+): Promise<AxiosResponse<UserData>> => {
+  return API.get(`/users/data/${userId}`);
+};

@@ -1,14 +1,15 @@
 import React, { createContext, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
-import { API, ApiError } from "../services/Api";
-import { LoginUser } from "../services/User";
-import { LoginUserData } from "../services/User/types";
+import { API, ApiError } from "../../services/Api";
+import { GetUserData, LoginUser } from "../../services/User";
+import { LoginUserData } from "../../services/User/types";
 import { AuthContextData, AuthProviderProps, UserData } from "./types";
 
 export const AuthContext = createContext<AuthContextData>({
   authenticated: false,
   errorMessage: null,
+  userData: null,
   handleLogin: Object,
   handleLogout: Function,
 });
@@ -17,18 +18,33 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const navigate = useNavigate();
 
   const [accessToken, setAccessToken] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loadingApp, setLoadingApp] = useState(true);
   const [userData, setUserData] = useState<UserData | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  useEffect(() => {
+  const getUserData = async () => {
+    const userId = userData?.id ?? localStorage.getItem("userId");
+    if (!userId) {
+      return;
+    }
+
+    const { data } = await GetUserData(userId);
+    setUserData(data);
+  };
+
+  const setInitialAppData = async () => {
     const token = localStorage.getItem("accessToken");
     if (token) {
       API.defaults.headers.common.Authorization = `Bearer ${JSON.parse(token)}`;
       setAccessToken(token);
+      await getUserData();
     }
 
-    setLoading(false);
+    setLoadingApp(false);
+  };
+
+  useEffect(() => {
+    setInitialAppData();
   }, []);
 
   const handleLogin = async (loginData: LoginUserData) => {
@@ -36,6 +52,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       const { data } = await LoginUser(loginData);
 
       localStorage.setItem("accessToken", JSON.stringify(data.token));
+      localStorage.setItem("userId", data.id);
       API.defaults.headers.common.Authorization = `Bearer ${data.token}`;
       navigate("/dashboard");
       setAccessToken(data.token);
@@ -57,6 +74,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("userId");
     setAccessToken(null);
     navigate("/");
   };
@@ -65,6 +83,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     () => ({
       authenticated: !!accessToken,
       errorMessage,
+      userData,
       handleLogin,
       handleLogout,
     }),
@@ -73,7 +92,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   return (
     <AuthContext.Provider value={contextData}>
-      {!loading ? children : null}
+      {!loadingApp ? children : null}
     </AuthContext.Provider>
   );
 };

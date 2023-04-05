@@ -4,7 +4,7 @@ import RegistrationForm from "./components/RegistrationForm";
 
 const Register = () => {
   return (
-    <div className="w-full min-h-screen flex justify-center items-center bg-[var(--primary-white)]">
+    <div className="w-full min-h-[calc(100vh-50px)] mt-[50px] flex justify-center items-center bg-[var(--primary-white)]">
       <div
         className="w-[85%] bg-white px-7 py-2 my-5 shadow-lg md:p-0 mx-5 rounded-xl md:flex
         md:justify-around md:w-full md:max-w-5xl"
