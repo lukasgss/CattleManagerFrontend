@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import MainPage from "../../components/MainPage";
 import Lottie from "lottie-react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
@@ -42,7 +43,7 @@ const Login = () => {
   });
 
   return (
-    <div className="w-full min-h-[calc(100vh-50px)] mt-[50px] flex justify-center items-center bg-[var(--primary-white)]">
+    <MainPage className="flex justify-center items-center">
       <div
         className="w-[85%] bg-white px-7 py-2 my-5 shadow-lg md:p-0 mx-5 rounded-xl md:flex
        md:flex-rw-reverse md:justify-around md:w-full md:max-w-5xl md:h-[550px]"
@@ -95,7 +96,7 @@ const Login = () => {
           </form>
         </div>
       </div>
-    </div>
+    </MainPage>
   );
 };
 
