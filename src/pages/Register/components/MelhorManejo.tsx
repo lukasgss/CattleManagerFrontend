@@ -1,6 +1,6 @@
 import React from "react";
 
-import milkingCow from "../../../assets/img/milkingCow.png";
+import milkingCow from "../../../assets/img/milkingCow.webp";
 
 import "../index.scss";
 

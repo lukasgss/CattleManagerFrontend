@@ -108,6 +108,7 @@ const SidebarRoutes = ({ open }: NavRoutesProps) => {
             ) : (
               <button
                 type="button"
+                aria-label="opcao barra de navegação"
                 title={Route.text}
                 onClick={Route.action}
                 className={`navbarRoute ${

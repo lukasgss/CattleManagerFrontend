@@ -81,7 +81,7 @@ const Login = () => {
                   error={errorMessage as string}
                   serverValidation
                 />
-                <Button submit loading={loading}>
+                <Button submit loading={loading} ariaLabel="login">
                   Login
                 </Button>
               </div>

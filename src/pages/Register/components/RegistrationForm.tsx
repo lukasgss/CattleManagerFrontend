@@ -117,7 +117,7 @@ const RegistrationForm = () => {
           {mutation.isError ? (
             <FormErrorMessage error={errorMessage as string} serverValidation />
           ) : null}
-          <Button submit loading={mutation.isLoading}>
+          <Button submit loading={mutation.isLoading} ariaLabel="cadastrar">
             Cadastrar
           </Button>
         </div>

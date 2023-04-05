@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import SidebarRoutes from "./SidebarRoutes";
 import { SidebarContext } from "../../../contexts/SidebarContext";
 
-import tmpLogo from "../../../assets/img/tmpLogo.png";
+import tmpLogo from "../../../assets/img/tmpLogo.webp";
 
 type SidebarNavProps = {
   sidebarCollapsed: boolean;
@@ -44,6 +44,7 @@ const SidebarNav = ({
               <div className="px-5 flex justify-center my-3">
                 <button
                   type="button"
+                  aria-label={sidebarCollapsed ? "expandir" : "retrair"}
                   className="mx-auto"
                   onClick={toggleSidebarCollapsed}
                 >

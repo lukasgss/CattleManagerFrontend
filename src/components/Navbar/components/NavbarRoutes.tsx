@@ -4,7 +4,7 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 import { GoMail } from "react-icons/go";
 import { AuthContext } from "../../../contexts/AuthContext/authContext";
 
-import defaultProfilePicture from "../../../assets/img/defaultProfilePicture.png";
+import defaultProfilePicture from "../../../assets/img/defaultProfilePicture.webp";
 
 const NavbarRoutes = () => {
   const { authenticated, userData } = useContext(AuthContext);
@@ -28,10 +28,10 @@ const NavbarRoutes = () => {
     <div className="flex gap-7">
       {authenticated ? (
         <>
-          <button type="button" title="Notificações">
+          <button type="button" aria-label="notificações" title="Notificações">
             <IoMdNotificationsOutline className="w-6 h-6 hover:brightness-150" />
           </button>
-          <button type="button" title="Mensagens">
+          <button type="button" aria-label="mensagens" title="Mensagens">
             <GoMail className="w-6 h-6 hover:brighness-150" />
           </button>
           <Link

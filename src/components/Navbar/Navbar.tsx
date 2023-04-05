@@ -5,7 +5,7 @@ import { SidebarContext } from "../../contexts/SidebarContext";
 import NavbarRoutes from "./components/NavbarRoutes";
 import { AuthContext } from "../../contexts/AuthContext/authContext";
 
-import tmpLogo from "../../assets/img/tmpLogo.png";
+import tmpLogo from "../../assets/img/tmpLogo.webp";
 
 const Navbar = () => {
   const { toggleSidebarOpen } = useContext(SidebarContext);
@@ -14,7 +14,11 @@ const Navbar = () => {
   return (
     <nav className="fixed z-50 bg-white flex items-center shadow px-7 justify-between md:pr-10 h-[50px] w-full">
       {authenticated ? (
-        <button type="button" onClickCapture={(e) => toggleSidebarOpen(e)}>
+        <button
+          type="button"
+          aria-label="menu barra de navegação lateral"
+          onClickCapture={(e) => toggleSidebarOpen(e)}
+        >
           <RxHamburgerMenu
             id="hamburguerMenu"
             className="w-6 h-6 bg-transparent hover:brightness-150"

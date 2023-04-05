@@ -40,12 +40,14 @@ const Password = ({
       <div className="relative">
         <input
           type={showPassword ? "text" : "password"}
+          id={name}
           {...register(name)}
           className={`w-full bg-[var(--primary-light-gray)] px-5 pr-10 py-3 rounded-xl focus:outline--gray-500
            focus:ring-0 border ${error ? "border-error" : ""}`}
         />
         <button
           type="button"
+          aria-label={showPassword ? "esconder senha" : "exibir senha"}
           className="absolute top-3.5 right-2.5 hover:brightness-110"
           onClick={() => setShowPassword((prevValue) => !prevValue)}
           tabIndex={-1}

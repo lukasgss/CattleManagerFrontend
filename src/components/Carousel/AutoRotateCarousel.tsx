@@ -26,6 +26,7 @@ const AutoRotateCarousel = ({
       <div className="flex justify-center gap-2.5 mt-5">
         {items.map((el, idx) => (
           <button
+            aria-label="trocar etapa"
             type="button"
             key={el.key}
             onClick={() => setCurrentSlide(idx)}

@@ -17,6 +17,7 @@ const Text = ({ register, error, name, labelText }: TextProps) => {
       </label>
       <input
         type="text"
+        id={name}
         {...register(name)}
         className={`bg-[var(--primary-light-gray)] px-5 py-3 border rounded-xl focus:outline--gray-500 border-none focus:ring-0" ${
           error ? "border-error focus:outline-[var(--border-error)]" : ""
