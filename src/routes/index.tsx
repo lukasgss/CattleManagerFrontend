@@ -6,6 +6,7 @@ import { AuthProvider } from "../contexts/AuthContext/authContext";
 import { SidebarProvider } from "../contexts/SidebarContext";
 import Navbar from "../components/Navbar/Navbar";
 import Sidebar from "../components/NavSidebar/Sidebar";
+import CreateCattle from "../pages/Cattle/CreateCattle";
 
 const AppRoutes = () => {
   return (
@@ -18,6 +19,7 @@ const AppRoutes = () => {
             <Routes>
               <Route path="/login" element={<Login />} />
               <Route path="/cadastro" element={<Register />} />
+              <Route path="/cadastro-gado" element={<CreateCattle />} />
             </Routes>
           </div>
         </SidebarProvider>

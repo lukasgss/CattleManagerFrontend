@@ -2,7 +2,7 @@ import React from "react";
 
 type MainPageProps = {
   children: React.ReactNode;
-  className: string;
+  className?: string;
 };
 
 const MainPage = ({ children, className }: MainPageProps) => {

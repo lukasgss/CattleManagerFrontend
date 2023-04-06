@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
-import MainPage from "../../components/MainPage";
 import Lottie from "lottie-react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import MainPage from "../../components/MainPage";
 import { AuthContext } from "../../contexts/AuthContext/authContext";
 import { LoginUserData } from "../../services/User/types";
 import FormErrorMessage from "../../components/FormErrorMessage";
