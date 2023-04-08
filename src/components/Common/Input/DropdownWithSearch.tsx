@@ -108,27 +108,27 @@ const DropdownWithSearch = ({
                       <button
                         type="button"
                         aria-label="selecionar"
-                        className={`px-3 py-1 w-full flex justify-between text-left hover:bg-[#7dc3fc] hover:text-[var(--primaryblack)] ${
+                        className={`px-3 py-1 w-full flex text-left hover:bg-[var(--secondary-light-gray)] hover:text-[var(--primary-black)] ${
                           selectedItem?.text === data.text
-                            ? "bg-[var(--primary-blue)] text-white"
+                            ? "bg-[var(--secondary-light-gray)]"
                             : ""
                         }`}
                         onClick={() => selectItem(data)}
                       >
+                        {selectedItem?.value === data.value ? (
+                          <span>
+                            <BsCheck2 className="w-5 h-5 hover:cursor-pointer mr-2" />
+                          </span>
+                        ) : null}
                         <span
                           className={`${
                             selectedItem?.text === data.text
                               ? "poppins-semi-bold"
-                              : ""
+                              : "pl-7"
                           }`}
                         >
                           {data.text}
                         </span>
-                        {selectedItem?.value === data.value ? (
-                          <span>
-                            <BsCheck2 className="w-5 h-5 hover:cursor-pointer" />
-                          </span>
-                        ) : null}
                       </button>
                     </li>
                   ))
