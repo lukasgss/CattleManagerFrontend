@@ -71,6 +71,7 @@ const AutoComplete = ({
               setExpanded(false);
             }, 0);
           }}
+          hideOnEscape={() => setExpanded(false)}
         >
           <input
             id={name}

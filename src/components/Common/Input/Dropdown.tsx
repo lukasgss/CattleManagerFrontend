@@ -65,6 +65,7 @@ const Dropdown = ({
           <DetectClickOutside
             elementRef={dropdownRef}
             onClickOutside={() => setExpanded(false)}
+            hideOnEscape={() => setExpanded(false)}
           >
             <div
               ref={dropdownRef}
