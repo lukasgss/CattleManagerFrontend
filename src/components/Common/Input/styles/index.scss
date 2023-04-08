@@ -1,0 +1,20 @@
+// datepicker calendar
+
+.rdrYearPicker {
+  background-color: white;
+  ::-webkit-scrollbar {
+    width: 4px;
+    border-radius: 6px;
+  }
+}
+
+.rdrYearPicker > select {
+  border-radius: 8px;
+}
+
+.rdrYearPicker > select > option,
+.rdrMonthPicker > select > option {
+  background-color: white;
+  border-radius: 10px;
+  font-family: "Manrope", sans-serif;
+}

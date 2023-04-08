@@ -14,7 +14,7 @@ export type CreateCattleFormData = {
   breedQuantity: string;
   purchaseDate: Date | null;
   conceptionDateDate: Date | null;
-  dateOfBirth: Date | null;
+  dateOfBirth: string | null;
   yearOfBirth: number;
   image: string | null;
   dateOfDeath: Date | null;

@@ -12,6 +12,7 @@ import BreedForm from "./components/BreedForm";
 import { CreateCattleFormData } from "./types";
 import Dropdown from "../../../components/Common/Input/Dropdown";
 import { sexArrData } from "../../../constantsDropdownArrayData";
+import DatePickerInput from "../../../components/Common/Input/DatePicker";
 
 const CreateCattle = () => {
   const [cattleFatherArr, setCattleFatherArr] = useState<DataArr[]>([]);
@@ -98,6 +99,12 @@ const CreateCattle = () => {
               selectedItem={selectedItem}
               setSelectedItem={setSelectedItem}
               dataArr={sexArrData}
+            />
+            <DatePickerInput
+              register={register}
+              name="dateOfBirth"
+              labelText="Data de nascimento"
+              setValue={setValue}
             />
           </div>
           <div>
