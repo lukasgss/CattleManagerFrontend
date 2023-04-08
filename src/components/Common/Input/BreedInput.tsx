@@ -13,7 +13,9 @@ type BreedInputProps = {
 const BreedInput = ({ name, labelText, control, error }: BreedInputProps) => {
   return (
     <div className="w-full flex flex-col">
-      <label htmlFor={name}>{labelText}</label>
+      <label htmlFor={name} className="pl-0.5">
+        {labelText}
+      </label>
       <Controller
         control={control}
         name={name}

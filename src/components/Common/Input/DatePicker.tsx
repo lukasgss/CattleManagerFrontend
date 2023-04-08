@@ -43,14 +43,16 @@ const DatePickerInput = ({
   };
 
   return (
-    <div className="w-full flex flex-col">
-      <label htmlFor={name}>{labelText}</label>
+    <div className="w-full flex flex-col gap-0.5">
+      <label htmlFor={name} className="pl-0.5">
+        {labelText}
+      </label>
       <div className="relative">
         <input
           id={name}
           {...register(name)}
           placeholder={placeholder}
-          className="bg-[var(--primary-light-gray)] px-5 pl-10 py-3 border rounded-xl focus:outline--gray-500 border-none focus:ring-0"
+          className="bg-[var(--primary-light-gray)] w-full px-5 pl-10 py-3 border rounded-xl focus:outline--gray-500 border-none focus:ring-0"
           value={
             selectedDate ? format(selectedDate, "dd/MM/yyyy") : initialDate
           }
@@ -66,7 +68,7 @@ const DatePickerInput = ({
           hideOnEscape={() => setCalendarOpen(false)}
         >
           <div className="relative" ref={calendarRef}>
-            <div className="absolute">
+            <div className="absolute w-full">
               <Calendar
                 onChange={(date) => onChangeDate(date)}
                 maxDate={new Date()}
@@ -74,7 +76,7 @@ const DatePickerInput = ({
                 weekStartsOn={0}
                 locale={pt}
                 date={selectedDate as undefined}
-                className="shadow-xl rounded-md"
+                className="shadow-xl rounded-md w-full"
               />
             </div>
           </div>

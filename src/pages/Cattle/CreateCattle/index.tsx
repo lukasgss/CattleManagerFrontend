@@ -57,13 +57,13 @@ const CreateCattle = () => {
 
   return (
     <MainPage>
-      <h2 className="text-3xl">Cadastrar gado</h2>
-      <div className="bg-white m-10 shadow rounded-md w-fit mx-auto">
+      <div className="bg-white shadow rounded-md mx-auto">
+        <h2 className="text-3xl p-5 pb-0">Cadastrar gado</h2>
         <form
           onSubmit={onSubmit}
-          className="py-8 px-4 md:flex-row flex flex-col gap-5"
+          className="py-8 px-5 md:flex-row flex flex-col gap-5 w-full"
         >
-          <div className="flex flex-col gap-2.5">
+          <div className="flex flex-col gap-2.5 w-full">
             <Text
               name="cattleName"
               register={register}
@@ -90,24 +90,26 @@ const CreateCattle = () => {
                 dataArr={cattleMotherArr}
               />
             </div>
-            <Dropdown
-              labelText="Sexo"
-              name="sexId"
-              register={register}
-              setValue={setValue}
-              error={errors.sexId}
-              selectedItem={selectedItem}
-              setSelectedItem={setSelectedItem}
-              dataArr={sexArrData}
-            />
-            <DatePickerInput
-              register={register}
-              name="dateOfBirth"
-              labelText="Data de nascimento"
-              setValue={setValue}
-            />
+            <div className="flex flex-col md:flex-row md:items-center gap-5">
+              <Dropdown
+                labelText="Sexo"
+                name="sexId"
+                register={register}
+                setValue={setValue}
+                error={errors.sexId}
+                selectedItem={selectedItem}
+                setSelectedItem={setSelectedItem}
+                dataArr={sexArrData}
+              />
+              <DatePickerInput
+                register={register}
+                name="dateOfBirth"
+                labelText="Data de nascimento"
+                setValue={setValue}
+              />
+            </div>
           </div>
-          <div>
+          <div className="w-full">
             <BreedForm
               register={register}
               setValue={setValue}
