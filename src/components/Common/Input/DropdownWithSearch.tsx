@@ -2,13 +2,10 @@ import React, { useRef, useState } from "react";
 import { UseFormRegister, UseFormSetValue } from "react-hook-form";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BsCheck2 } from "react-icons/bs";
-import { CreateCattleFormData } from "../../../pages/Cattle/CreateCattle";
 import { DataArr } from "../../../types/dataArr";
 import FormErrorMessage from "../../FormErrorMessage";
 import { removeDiacritics } from "../../../extensions/stringExtensions";
 import DetectClickOutside from "../../DetectClickOutside";
-
-type FormFields = keyof CreateCattleFormData;
 
 type DropdownWithSearchProps = {
   register: UseFormRegister<any>;
@@ -46,7 +43,7 @@ const DropdownWithSearch = ({
       : dataArr;
 
   const selectItem = (item: DataArr) => {
-    setValue(name as FormFields, item.text);
+    setValue(name as any, item.text);
     setSelectedItem(item);
     setExpanded(false);
   };

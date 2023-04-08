@@ -10,10 +10,14 @@ import {
 } from "../../../services/Cattle";
 import BreedForm from "./components/BreedForm";
 import { CreateCattleFormData } from "./types";
+import Dropdown from "../../../components/Common/Input/Dropdown";
+import { sexArrData } from "../../../constantsDropdownArrayData";
 
 const CreateCattle = () => {
   const [cattleFatherArr, setCattleFatherArr] = useState<DataArr[]>([]);
   const [cattleMotherArr, setCattleMotherArr] = useState<DataArr[]>([]);
+
+  const [selectedItem, setSelectedItem] = useState<DataArr | null>(null);
 
   const {
     register,
@@ -85,16 +89,28 @@ const CreateCattle = () => {
                 dataArr={cattleMotherArr}
               />
             </div>
+            <Dropdown
+              labelText="Sexo"
+              name="sexId"
+              register={register}
+              setValue={setValue}
+              error={errors.sexId}
+              selectedItem={selectedItem}
+              setSelectedItem={setSelectedItem}
+              dataArr={sexArrData}
+            />
           </div>
-          <BreedForm
-            register={register}
-            setValue={setValue}
-            setError={setError}
-            control={control}
-            errors={errors}
-            getValues={getValues}
-            clearErrors={clearErrors}
-          />
+          <div>
+            <BreedForm
+              register={register}
+              setValue={setValue}
+              setError={setError}
+              control={control}
+              errors={errors}
+              getValues={getValues}
+              clearErrors={clearErrors}
+            />
+          </div>
         </form>
       </div>
     </MainPage>

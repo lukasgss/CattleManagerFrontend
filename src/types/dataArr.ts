@@ -1,4 +1,4 @@
 export type DataArr = {
   text: string;
-  value: string;
+  value: string | number;
 };
