@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FieldError, UseFormRegister, UseFormSetValue } from "react-hook-form";
-import { BsArrowDownShort, BsCheck2 } from "react-icons/bs";
+import { BsCheck2, BsChevronDown } from "react-icons/bs";
 import FormErrorMessage from "../../FormErrorMessage";
 import { DataArr } from "../../../types/dataArr";
 import DetectClickOutside from "../../DetectClickOutside";
@@ -99,7 +99,7 @@ const AutoComplete = ({
           title={expanded ? "Retrair" : "Expandir"}
           onClick={() => setExpanded((prevValue) => !prevValue)}
         >
-          <BsArrowDownShort
+          <BsChevronDown
             className={`absolute top-3 right-3 w-5 h-5 transition duration-300 ${
               expanded ? "rotate-180" : ""
             }`}

@@ -56,7 +56,7 @@ const DatePickerInput = ({
           }
           onClick={() => setCalendarOpen(true)}
         />
-        <AiOutlineCalendar className="absolute h-5 w-5 top-3 left-2.5" />
+        <AiOutlineCalendar className="absolute h-5 w-5 top-3.5 left-2.5" />
       </div>
       {error ? <FormErrorMessage error={error.message} /> : null}
       {calendarOpen ? (

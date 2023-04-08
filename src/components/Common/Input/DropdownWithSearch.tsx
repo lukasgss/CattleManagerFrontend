@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { UseFormRegister, UseFormSetValue } from "react-hook-form";
 import { AiOutlineSearch } from "react-icons/ai";
-import { BsCheck2 } from "react-icons/bs";
+import { BsCheck2, BsChevronDown } from "react-icons/bs";
 import { DataArr } from "../../../types/dataArr";
 import FormErrorMessage from "../../FormErrorMessage";
 import { removeDiacritics } from "../../../extensions/stringExtensions";
@@ -59,15 +59,20 @@ const DropdownWithSearch = ({
         {labelText}
       </label>
       <button type="button" onClick={() => setExpanded(true)}>
-        <div className="w-full">
+        <div className="w-full relative">
           <input
             type="text"
             value={selectedItem?.text ?? ""}
             {...register(name)}
-            className={`w-full bg-[var(--primary-light-gray)] px-5 py-3 border rounded-xl focus:outline--gray-500
+            className={`w-full bg-[var(--primary-light-gray)] px-5 pr-10 py-3 border rounded-xl focus:outline--gray-500
              border-none focus:ring-0  hover:cursor-pointer ${
                error ? "border-error focus:outline-[var(--border-error)]" : ""
              }`}
+          />
+          <BsChevronDown
+            className={`absolute top-3 right-3 w-5 h-5 transition duration-300 ${
+              expanded ? "rotate-180" : ""
+            }`}
           />
         </div>
       </button>

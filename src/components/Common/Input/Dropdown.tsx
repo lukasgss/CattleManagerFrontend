@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { BsArrowDownShort, BsCheck2 } from "react-icons/bs";
+import { BsCheck2, BsChevronDown } from "react-icons/bs";
 import { FieldError, UseFormRegister, UseFormSetValue } from "react-hook-form";
 import FormErrorMessage from "../../FormErrorMessage";
 import { DataArr } from "../../../types/dataArr";
@@ -52,7 +52,7 @@ const Dropdown = ({
                error ? "border-error focus:outline-[var(--border-error)]" : ""
              }`}
           />
-          <BsArrowDownShort
+          <BsChevronDown
             className={`absolute top-3 right-3 w-5 h-5 transition duration-300 ${
               expanded ? "rotate-180" : ""
             }`}

@@ -63,7 +63,7 @@ const CreateCattle = () => {
           onSubmit={onSubmit}
           className="py-8 px-4 md:flex-row flex flex-col gap-5"
         >
-          <div>
+          <div className="flex flex-col gap-2.5">
             <Text
               name="cattleName"
               register={register}
