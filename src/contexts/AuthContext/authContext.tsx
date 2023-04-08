@@ -22,14 +22,26 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [userData, setUserData] = useState<UserData | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("userId");
+    setAccessToken(null);
+    navigate("/");
+  };
+
   const getUserData = async () => {
     const userId = userData?.id ?? localStorage.getItem("userId");
     if (!userId) {
       return;
     }
 
-    const { data } = await GetUserData(userId);
-    setUserData(data);
+    try {
+      const { data } = await GetUserData(userId);
+      setUserData(data);
+    } catch {
+      handleLogout();
+      navigate("/login");
+    }
   };
 
   const setInitialAppData = async () => {
@@ -70,13 +82,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           : import.meta.env.VITE_GENERIC_ERROR_MESSAGE;
       setErrorMessage(errorMsg);
     }
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("userId");
-    setAccessToken(null);
-    navigate("/");
   };
 
   const contextData = useMemo(

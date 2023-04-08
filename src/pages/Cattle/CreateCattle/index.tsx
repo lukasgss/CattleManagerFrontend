@@ -4,46 +4,37 @@ import MainPage from "../../../components/MainPage";
 import Text from "../../../components/Common/Input/Text";
 import AutoComplete from "../../../components/Common/Input/AutoComplete";
 import { DataArr } from "../../../types/dataArr";
-import { GetMaleCattleByName } from "../../../services/Cattle";
-
-type Breed = {
-  breedId: string;
-  quantityInPercentage: number;
-};
-
-type CreateCattleFormData = {
-  name: string;
-  fatherId: string | null;
-  motherId: string | null;
-  sexId: 0 | 1;
-  breeds: Breed[];
-  purchaseDate: Date | null;
-  conceptionDateDate: Date | null;
-  dateOfBirth: Date | null;
-  yearOfBirth: number;
-  image: string | null;
-  dateOfDeath: Date | null;
-  causeOfDeath: string;
-  dateOfSale: Date | null;
-  priceInCentsInReais: number | null;
-  ownersIds: string[];
-};
+import {
+  GetFemaleCattleByName,
+  GetMaleCattleByName,
+} from "../../../services/Cattle";
+import BreedForm from "./components/BreedForm";
+import { CreateCattleFormData } from "./types";
 
 const CreateCattle = () => {
   const [cattleFatherArr, setCattleFatherArr] = useState<DataArr[]>([]);
+  const [cattleMotherArr, setCattleMotherArr] = useState<DataArr[]>([]);
 
   const {
     register,
     handleSubmit,
     setValue,
+    getValues,
+    setError,
+    control,
+    clearErrors,
     formState: { errors },
-  } = useForm<CreateCattleFormData>();
+  } = useForm<CreateCattleFormData>({
+    defaultValues: {
+      breeds: [],
+    },
+  });
 
   const onSubmit = handleSubmit(() => {
     //
   });
 
-  const onChangeSearch = async (searchTerm: string) => {
+  const onChangeSearchFather = async (searchTerm: string) => {
     if (searchTerm === "") {
       setCattleFatherArr([]);
     }
@@ -51,11 +42,22 @@ const CreateCattle = () => {
     setCattleFatherArr(data);
   };
 
+  const onChangeSearchMother = async (searchTerm: string) => {
+    if (searchTerm === "") {
+      setCattleMotherArr([]);
+    }
+    const { data } = await GetFemaleCattleByName(searchTerm);
+    setCattleMotherArr(data);
+  };
+
   return (
     <MainPage>
       <h2 className="text-3xl">Cadastrar gado</h2>
-      <div className="bg-white m-10 shadow rounded-md">
-        <form onSubmit={onSubmit} className="py-8 px-4 grid grid-cols-3">
+      <div className="bg-white m-10 shadow rounded-md w-fit mx-auto">
+        <form
+          onSubmit={onSubmit}
+          className="py-8 px-4 md:flex-row flex flex-col gap-5"
+        >
           <div>
             <Text
               name="cattleName"
@@ -63,16 +65,36 @@ const CreateCattle = () => {
               error={errors.name}
               labelText="Nome do animal"
             />
-            <AutoComplete
-              name="fatherId"
-              register={register}
-              labelText="Pai do animal"
-              setValue={setValue}
-              error={errors.fatherId}
-              onChangeSearch={onChangeSearch}
-              dataArr={cattleFatherArr}
-            />
+            <div className="lg:flex gap-5">
+              <AutoComplete
+                name="fatherId"
+                register={register}
+                labelText="Pai do animal"
+                setValue={setValue}
+                error={errors.fatherId}
+                onChangeSearch={onChangeSearchFather}
+                dataArr={cattleFatherArr}
+              />
+              <AutoComplete
+                name="motherId"
+                register={register}
+                labelText="Mãe do animal"
+                setValue={setValue}
+                error={errors.motherId}
+                onChangeSearch={onChangeSearchMother}
+                dataArr={cattleMotherArr}
+              />
+            </div>
           </div>
+          <BreedForm
+            register={register}
+            setValue={setValue}
+            setError={setError}
+            control={control}
+            errors={errors}
+            getValues={getValues}
+            clearErrors={clearErrors}
+          />
         </form>
       </div>
     </MainPage>

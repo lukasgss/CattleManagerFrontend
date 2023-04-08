@@ -8,7 +8,7 @@ type MainPageProps = {
 const MainPage = ({ children, className }: MainPageProps) => {
   return (
     <div
-      className={`w-full min-h-[calc(100vh-50px)] mt-[50px] bg-[var(--primary-white)] ${className}`}
+      className={`w-full min-h-[calc(100vh-50px)] px-5 py-3 mt-[50px] bg-[var(--primary-white)] ${className}`}
     >
       {children}
     </div>

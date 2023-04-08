@@ -21,12 +21,12 @@ const Button = ({
       <button
         type={submit ? "submit" : "button"}
         aria-label={ariaLabel}
-        className={`bg-[var(--primary-blue)] text-white px-5 py-3 rounded-xl w-full poppins-semi-bold
+        className={`bg-[var(--primary-blue)] text-white px-5 py-3 rounded-lg w-full poppins-semi-bold
          disabled:bg-gray-200 disabled:cursor-not-allowed ${
            loading ? "" : "hover:brightness-110"
          }`}
         disabled={loading}
-        onClick={() => action}
+        onClick={action}
       >
         {loading ? (
           <AiOutlineLoading3Quarters className="animate-spin mx-auto w-5 h-6 text-[var(--primary-blue)]" />

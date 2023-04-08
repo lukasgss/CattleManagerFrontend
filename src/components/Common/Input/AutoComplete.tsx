@@ -34,8 +34,10 @@ const AutoComplete = ({
   const { ref, ...registerData } = register(name);
 
   const [timeoutPassed, setTimeoutPassed] = useState(false);
+
   useEffect(() => {
     const timeout = setTimeout(() => {
+      if (searchTerm === "") return;
       onChangeSearch(searchTerm);
       setTimeoutPassed(true);
     }, 500);
@@ -54,6 +56,7 @@ const AutoComplete = ({
 
     setExpanded(false);
   };
+
   return (
     <div className="flex flex-col gap-0.5 w-full">
       <label className="pl-0.5" htmlFor={name}>

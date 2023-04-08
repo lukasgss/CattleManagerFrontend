@@ -5,5 +5,11 @@ import { API } from "../Api";
 export const GetMaleCattleByName = (
   name: string
 ): Promise<AxiosResponse<DataArr[]>> => {
-  return API.get(`/dropdown/cattle/male?name=${name}`);
+  return API.get(`/cattle/dropdown/male?name=${name}`);
+};
+
+export const GetFemaleCattleByName = (
+  name: string
+): Promise<AxiosResponse<DataArr[]>> => {
+  return API.get(`/cattle/dropdown/female?name=${name}`);
 };
