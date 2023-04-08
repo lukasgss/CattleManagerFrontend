@@ -114,26 +114,30 @@ const AutoComplete = ({
             className="dropdown-scrollbar absolute max-h-60 overflow-y-auto top-2 bg-white shadow-lg rounded-md w-full ring-1 ring-black ring-opacity-5 py-2 z-30"
           >
             {dataArr.length > 0 && searchTerm ? (
-              <ul className="flex flex-col gap-2">
+              <ul className="flex flex-col gap-0.5">
                 {dataArr.map((el) => (
-                  <li
-                    key={el.value}
-                    className={`w-full rounded hover:bg-[var(--secondary-blue)] flex justify-between items-center
-                    ${
-                      selectedItem?.value === el.value
-                        ? "poppins-semi-bold"
-                        : ""
-                    }`}
-                  >
+                  <li key={el.value}>
                     <button
                       type="button"
-                      className="px-4 w-full flex justify-between items-center text-left hover:bg-[var(--secondary-blue)] py-1 rounded z-5"
+                      className={`px-3 py-1 w-full flex items-center text-left hover:bg-[var(--secondary-light-gray)] z-5 ${
+                        selectedItem?.value === el.value
+                          ? "bg-[var(--secondary-light-gray)]"
+                          : ""
+                      }`}
                       onClick={() => selectItem(el)}
                     >
-                      {el.text}
                       {selectedItem?.value === el.value ? (
-                        <BsCheck2 className="w-5 h-5 hover:cursor-pointer" />
+                        <BsCheck2 className="w-5 h-5 mr-2 hover:cursor-pointer" />
                       ) : null}
+                      <span
+                        className={`${
+                          selectedItem?.value === el.value
+                            ? "poppins-semi-bold"
+                            : "pl-7"
+                        }`}
+                      >
+                        {el.text}
+                      </span>
                     </button>
                   </li>
                 ))}
