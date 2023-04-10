@@ -170,7 +170,7 @@ const BreedForm = ({
   return (
     <div className="flex flex-col gap-1.5">
       <div className="flex flex-col lg:flex-row items-end gap-5">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-5">
           <DropdownWithSearch
             name="breedName"
             register={register}
