@@ -12,6 +12,7 @@ type DropdownWithSearchProps = {
   setValue: UseFormSetValue<any>;
   error?: any;
   name: string;
+  placeholder?: string;
   dataArr: DataArr[];
   labelText: string;
   selectedItem: DataArr | null;
@@ -24,6 +25,7 @@ const DropdownWithSearch = ({
   name,
   labelText,
   dataArr,
+  placeholder,
   error,
   selectedItem,
   setSelectedItem,
@@ -63,6 +65,7 @@ const DropdownWithSearch = ({
           <input
             type="text"
             value={selectedItem?.text ?? ""}
+            placeholder={placeholder}
             {...register(name)}
             className={`w-full bg-[var(--primary-light-gray)] px-5 pr-10 py-3 border rounded-xl focus:outline--gray-500
              border-none focus:ring-0  hover:cursor-pointer ${
@@ -101,7 +104,7 @@ const DropdownWithSearch = ({
                   <AiOutlineSearch className="absolute top-3.5 left-5 h-5 w-5 text-[var(--gray-text)]" />
                 </span>
               </div>
-              <ul className="flex flex-col gap-0.5 mt-2">
+              <ul className="flex flex-col gap-0.5">
                 {filteredData.length > 0 ? (
                   filteredData.map((data) => (
                     <li key={data.value}>

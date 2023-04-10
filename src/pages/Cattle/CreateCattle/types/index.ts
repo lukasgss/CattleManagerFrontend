@@ -21,5 +21,6 @@ export type CreateCattleFormData = {
   causeOfDeath: string;
   dateOfSale: Date | null;
   priceInCentsInReais: number | null;
+  ownerName: string;
   ownersIds: string[];
 };

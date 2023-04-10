@@ -12,7 +12,7 @@ type BreedInputProps = {
 
 const BreedInput = ({ name, labelText, control, error }: BreedInputProps) => {
   return (
-    <div className="w-full flex flex-col">
+    <div className="w-full flex flex-col gap-0.5">
       <label htmlFor={name} className="pl-0.5">
         {labelText}
       </label>
@@ -27,7 +27,7 @@ const BreedInput = ({ name, labelText, control, error }: BreedInputProps) => {
             value={value}
             onChange={onChange}
             autoComplete="off"
-            placeholder="Ex.: 5/8"
+            placeholder="5/8"
             className={`bg-[var(--primary-light-gray)] px-5 py-3 border rounded-xl focus:outline--gray-500 border-none focus:ring-0" ${
               error ? "border-error focus:outline-[var(--border-error)]" : ""
             }`}

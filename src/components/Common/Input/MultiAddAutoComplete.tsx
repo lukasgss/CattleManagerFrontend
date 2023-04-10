@@ -1,5 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { FieldError, UseFormRegister, UseFormSetValue } from "react-hook-form";
+import {
+  FieldError,
+  Merge,
+  UseFormRegister,
+  UseFormSetValue,
+} from "react-hook-form";
 import { BsCheck2, BsChevronDown } from "react-icons/bs";
 import FormErrorMessage from "../../FormErrorMessage";
 import { DataArr } from "../../../types/dataArr";
@@ -12,8 +17,12 @@ type AutoCompleteProps = {
   placeholder?: string;
   dataArr: DataArr[];
   onChangeSearch: (searchText: string) => void;
+  selectedItem: DataArr | null;
+  setSelectedItem: React.Dispatch<React.SetStateAction<DataArr | null>>;
   setValue: UseFormSetValue<any>;
-  error?: FieldError;
+  searchTerm: string;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+  error?: Merge<FieldError, (FieldError | undefined)[]>;
 };
 
 const AutoComplete = ({
@@ -24,11 +33,13 @@ const AutoComplete = ({
   error,
   onChangeSearch,
   setValue,
+  selectedItem,
+  setSelectedItem,
+  searchTerm,
+  setSearchTerm,
   dataArr,
 }: AutoCompleteProps) => {
   const [expanded, setExpanded] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedItem, setSelectedItem] = useState<DataArr | null>(null);
 
   const inputRef = useRef<any>(null);
   const dropdownRef = useRef<any>(null);

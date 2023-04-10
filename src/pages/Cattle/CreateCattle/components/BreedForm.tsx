@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoIosClose } from "react-icons/io";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -9,6 +9,7 @@ import {
   UseFormRegister,
   UseFormSetError,
   UseFormSetValue,
+  UseFormWatch,
 } from "react-hook-form";
 import Button from "../../../../components/Common/Button";
 import DropdownWithSearch from "../../../../components/Common/Input/DropdownWithSearch";
@@ -28,6 +29,7 @@ type BreedFormProps = {
   control: Control<CreateCattleFormData, any>;
   errors?: FieldErrors<CreateCattleFormData>;
   getValues: UseFormGetValues<CreateCattleFormData>;
+  watch: UseFormWatch<CreateCattleFormData>;
   clearErrors: UseFormClearErrors<CreateCattleFormData>;
 };
 
@@ -45,6 +47,7 @@ const BreedForm = ({
   errors,
   getValues,
   clearErrors,
+  watch,
 }: BreedFormProps) => {
   const [breedsArr, setBreedsArr] = useState<DataArr[]>([]);
   const [addedBreeds, setAddedBreeds] = useState<Breed[]>([]);
@@ -57,25 +60,62 @@ const BreedForm = ({
     return data;
   };
 
+  const breedFieldsAreValid = ({ name, quantity }: Breed) => {
+    if (!name && !quantity) {
+      setError("breedName", {
+        type: "custom",
+        message: "Obrigatório.",
+      });
+      setError("breedQuantity", {
+        type: "custom",
+        message: "Obrigatório.",
+      });
+      return false;
+    }
+    if (!name) {
+      setError("breedName", {
+        type: "custom",
+        message: "Obrigatório.",
+      });
+      return false;
+    }
+    if (!quantity) {
+      setError("breedQuantity", {
+        type: "custom",
+        message: "Obrigatório.",
+      });
+      return false;
+    }
+    if (addedBreeds.some((breed) => breed.name === name)) {
+      setError("breedName", {
+        type: "custom",
+        message: "Raça já foi adicionada.",
+      });
+      return false;
+    }
+    return true;
+  };
+
+  const breedName = watch("breedName");
+  const breedQuantity = watch("breedQuantity");
+
+  useEffect(() => {
+    if (breedName) {
+      clearErrors("breedName");
+    }
+    if (breedQuantity) {
+      clearErrors("breedQuantity");
+    }
+  }, [breedName, breedQuantity]);
+
   useQuery({
     queryKey: ["getBreeds"],
     queryFn: getAllBreeds,
   });
 
   const addBreed = (breed: Breed) => {
-    if (!breed.name) {
-      setError("breeds", {
-        type: "custom",
-        message: "Obrigatório.",
-      });
-    }
-    if (!breed.quantity) {
-      setError("breedQuantity", {
-        type: "custom",
-        message: "Obrigatório.",
-      });
-      return;
-    }
+    const validBreedFields = breedFieldsAreValid(breed);
+    if (!validBreedFields) return;
 
     let breedQuantitySum = 0;
 
@@ -110,9 +150,10 @@ const BreedForm = ({
       },
     ]);
     setValue("breedQuantity", "");
+    setValue("breedName", "");
     setSelectedItem(null);
     clearErrors("breedQuantity");
-    clearErrors("breeds");
+    clearErrors("breedName");
   };
 
   const removeAddedBreed = (breed: Breed) => {
@@ -128,48 +169,50 @@ const BreedForm = ({
 
   return (
     <div className="flex flex-col gap-1.5">
-      <div className="lg:flex gap-5">
-        <DropdownWithSearch
-          name="breedName"
-          register={register}
-          setValue={setValue}
-          labelText="Raça"
-          error={errors?.breeds}
-          selectedItem={selectedItem}
-          setSelectedItem={setSelectedItem}
-          dataArr={breedsArr}
-        />
-        <BreedInput
-          name="breedQuantity"
-          control={control}
-          labelText="Quantidade"
-          error={errors?.breedQuantity}
-        />
-      </div>
-      <div className="ml-auto w-fit">
-        <Button
-          ariaLabel="adicionar raça"
-          action={() =>
-            addBreed({
-              id: selectedItem?.value as string,
-              name: getValues("breedName"),
-              quantity: getValues("breedQuantity"),
-            })
-          }
-        >
-          Adicionar
-        </Button>
+      <div className="flex flex-col lg:flex-row items-end gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          <DropdownWithSearch
+            name="breedName"
+            register={register}
+            setValue={setValue}
+            placeholder="Holandês"
+            labelText="Raça"
+            error={errors?.breedName}
+            selectedItem={selectedItem}
+            setSelectedItem={setSelectedItem}
+            dataArr={breedsArr}
+          />
+          <BreedInput
+            name="breedQuantity"
+            control={control}
+            labelText="Quantidade"
+            error={errors?.breedQuantity}
+          />
+        </div>
+        <div className="w-full lg:w-fit">
+          <Button
+            ariaLabel="adicionar raça"
+            action={() =>
+              addBreed({
+                id: selectedItem?.value as string,
+                name: getValues("breedName"),
+                quantity: getValues("breedQuantity"),
+              })
+            }
+          >
+            Adicionar
+          </Button>
+        </div>
       </div>
       <div className="mt-2">
-        <ul className="flex gap-2.5 px-5 flex-wrap">
+        <ul className="flex gap-2.5 px-0.5 flex-wrap">
           {addedBreeds.map((breed) => (
             <li
               key={breed.name}
-              className="relative bg-[var(--secondary-blue)] px-2 pr-5 py-1 rounded-md"
+              className="w-full mb-3 lg:mb-5 lg:w-fit relative flex flex-col leading-6 border-2 border-color[var(--primary-light-gray)] px-2 pr-5 py-1 rounded"
             >
-              <span>
-                {breed.name} - {breed.quantity}
-              </span>
+              <span>Raça: {breed.name}</span>
+              <span>Quantidade: {breed.quantity}</span>
               <button
                 type="button"
                 title="Remover item"

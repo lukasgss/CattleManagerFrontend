@@ -6,6 +6,7 @@ type ButtonProps = {
   children: React.ReactNode;
   loading?: boolean;
   ariaLabel: string;
+  className?: string;
   action?: (...params: (number | object | string)[]) => void;
 };
 
@@ -13,6 +14,7 @@ const Button = ({
   submit = false,
   children,
   loading,
+  className,
   ariaLabel,
   action,
 }: ButtonProps) => {
@@ -24,7 +26,7 @@ const Button = ({
         className={`bg-[var(--primary-blue)] text-white px-5 py-3 rounded-lg w-full poppins-semi-bold
          disabled:bg-gray-200 disabled:cursor-not-allowed ${
            loading ? "" : "hover:brightness-110"
-         }`}
+         } ${className}`}
         disabled={loading}
         onClick={action}
       >

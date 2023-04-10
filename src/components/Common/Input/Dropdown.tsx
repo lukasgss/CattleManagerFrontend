@@ -10,6 +10,7 @@ type DropdownProps = {
   name: string;
   dataArr: DataArr[];
   labelText: string;
+  placeholder?: string;
   selectedItem: DataArr | null;
   setSelectedItem: React.Dispatch<React.SetStateAction<DataArr | null>>;
   setValue: UseFormSetValue<any>;
@@ -21,6 +22,7 @@ const Dropdown = ({
   name,
   dataArr,
   labelText,
+  placeholder,
   selectedItem,
   setSelectedItem,
   setValue,
@@ -46,6 +48,7 @@ const Dropdown = ({
           <input
             type="text"
             value={selectedItem?.text ?? ""}
+            placeholder={placeholder}
             {...register(name)}
             className={`w-full bg-[var(--primary-light-gray)] px-5 py-3 border rounded-xl focus:outline--gray-500
              border-none focus:ring-0  hover:cursor-pointer ${
