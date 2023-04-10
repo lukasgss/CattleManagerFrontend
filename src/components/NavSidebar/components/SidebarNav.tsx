@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
-
-import { BsArrowRightShort } from "react-icons/bs";
+import { BsArrowLeftShort } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import SidebarRoutes from "./SidebarRoutes";
 import { SidebarContext } from "../../../contexts/SidebarContext";
@@ -25,7 +24,7 @@ const SidebarNav = ({
       ref={elementRef}
       className={`h-screen transition-width duration-200 fixed lg:relative z-40 ${
         sidebarOpen ? "" : "!w-0"
-      } ${sidebarCollapsed ? "w-[225px]" : "w-[90px]"}`}
+      } ${sidebarCollapsed ? "w-[90px]" : "w-[225px]"}`}
     >
       <div className="w-[inherit] fixed md:relative z-40 overflow-y-hidden mt-[50px] bg-white h-[calc(100vh-50px)]">
         {sidebarOpen ? (
@@ -48,8 +47,8 @@ const SidebarNav = ({
                   className="mx-auto"
                   onClick={toggleSidebarCollapsed}
                 >
-                  <BsArrowRightShort
-                    title={sidebarCollapsed ? "Retrair" : "Expandir"}
+                  <BsArrowLeftShort
+                    title={sidebarCollapsed ? "Expandir" : "Retrair"}
                     className={`w-8 h-8 bg-[#3b94fa] text-white rounded-full hover:brightness-110 transition duration-300 ${
                       sidebarCollapsed ? "rotate-180" : ""
                     }`}
@@ -60,7 +59,7 @@ const SidebarNav = ({
                 <div className="h-[2px] w-full bg-[var(--primary-light-gray)]" />
               </div>
             </div>
-            <SidebarRoutes open={sidebarCollapsed} />
+            <SidebarRoutes open={!sidebarCollapsed} />
           </div>
         ) : null}
       </div>

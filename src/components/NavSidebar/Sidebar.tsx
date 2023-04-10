@@ -42,7 +42,7 @@ const Sidebar = () => {
     setSidebarCollapsed((prevValue) => !prevValue);
   };
 
-  const handleClickOutsideSideNav = (event: MouseEvent) => {
+  const handleClickOutsideSideNav = (event: any) => {
     if (sidebarOpen) {
       toggleSidebarOpen(event);
     }

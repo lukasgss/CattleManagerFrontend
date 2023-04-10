@@ -13,7 +13,7 @@ export const SidebarContext = createContext<SidebarData>({
 });
 
 export const SidebarProvider = ({ children }: SidebarContextProps) => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   useLayoutEffect(() => {
     const open = localStorage.getItem("sidebarOpen");
