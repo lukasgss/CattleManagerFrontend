@@ -29,9 +29,9 @@ const SidebarRoutes = ({ open }: NavRoutesProps) => {
     },
 
     {
-      text: "Vacas",
-      link: "/vacas",
-      active: currentRoute === "/vacas",
+      text: "Gado",
+      link: "/gado",
+      active: currentRoute === "/gado",
       Icon: GiCow,
     },
     {
