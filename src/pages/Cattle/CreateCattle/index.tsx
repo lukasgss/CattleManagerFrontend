@@ -12,8 +12,10 @@ import BreedForm from "./components/BreedForm";
 import { CreateCattleFormData } from "./types";
 import Dropdown from "../../../components/Common/Input/Dropdown";
 import { sexArrData } from "../../../constantsDropdownArrayData";
-import DatePickerInput from "../../../components/Common/Input/DatePicker";
+import DatePickerInput from "../../../components/Common/Input/DatePickerInput";
 import OwnerForm from "./components/OwnerForm";
+import Radio from "../../../components/Common/Input/Radio";
+import BoughtCattleForm from "./components/BoughtCattleForm";
 
 const CreateCattle = () => {
   const [cattleFatherArr, setCattleFatherArr] = useState<DataArr[]>([]);
@@ -35,6 +37,7 @@ const CreateCattle = () => {
     defaultValues: {
       breeds: [],
       ownersIds: [],
+      wasBought: false,
     },
   });
 
@@ -136,6 +139,29 @@ const CreateCattle = () => {
               clearErrors={clearErrors}
               getValues={getValues}
             />
+          </div>
+          <div>
+            <span>Vaca foi comprada?</span>
+            <div className="flex flex-col">
+              <Radio
+                name="wasBought"
+                register={register}
+                radioOptions={[
+                  { text: "Não", value: false },
+                  { text: "Sim", value: true },
+                ]}
+                watch={watch}
+                setValue={setValue}
+                error={errors.wasBought}
+              />
+              <BoughtCattleForm
+                register={register}
+                setValue={setValue}
+                watch={watch}
+                control={control}
+                errors={errors}
+              />
+            </div>
           </div>
         </form>
       </div>

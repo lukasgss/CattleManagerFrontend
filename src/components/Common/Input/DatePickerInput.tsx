@@ -68,7 +68,7 @@ const DatePickerInput = ({
           hideOnEscape={() => setCalendarOpen(false)}
         >
           <div className="relative" ref={calendarRef}>
-            <div className="absolute w-full">
+            <div className="absolute w-full z-[1000]">
               <Calendar
                 onChange={(date) => onChangeDate(date)}
                 maxDate={new Date()}

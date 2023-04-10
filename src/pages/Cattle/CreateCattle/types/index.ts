@@ -12,6 +12,7 @@ export type CreateCattleFormData = {
   breeds: BreedFormData[];
   breedName: string;
   breedQuantity: string;
+  wasBought: boolean;
   purchaseDate: Date | null;
   conceptionDateDate: Date | null;
   dateOfBirth: string | null;
