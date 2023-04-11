@@ -48,7 +48,7 @@ const Sidebar = () => {
     }
   };
 
-  if (!authenticated) {
+  if (!authenticated || currentRoute === "/404") {
     return null;
   }
 

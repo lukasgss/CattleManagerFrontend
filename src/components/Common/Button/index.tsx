@@ -8,6 +8,7 @@ type ButtonProps = {
   ariaLabel: string;
   className?: string;
   action?: (...params: (number | object | string)[]) => void;
+  transparent?: boolean;
 };
 
 const Button = ({
@@ -17,16 +18,21 @@ const Button = ({
   className,
   ariaLabel,
   action,
+  transparent,
 }: ButtonProps) => {
   return (
     <div>
       <button
         type={submit ? "submit" : "button"}
         aria-label={ariaLabel}
-        className={`bg-[var(--primary-blue)] text-white px-5 py-3 rounded-lg w-full poppins-semi-bold
+        className={`px-5 py-3 rounded-lg w-full poppins-semi-bold
          disabled:bg-gray-200 disabled:cursor-not-allowed ${
            loading ? "" : "hover:brightness-110"
-         } ${className}`}
+         } ${className} ${
+          transparent
+            ? "bg-transparent border-2 border-[var(--primary-blue)] text-[var(--primary-blue)] hover:bg-var(--secondary-light-gray)]"
+            : "text-white bg-[var(--primary-blue)]"
+        }`}
         disabled={loading}
         onClick={action}
       >

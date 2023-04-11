@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { SidebarContext } from "../../contexts/SidebarContext";
 import NavbarRoutes from "./components/NavbarRoutes";
@@ -10,6 +10,12 @@ import tmpLogo from "../../assets/img/tmpLogo.webp";
 const Navbar = () => {
   const { toggleSidebarOpen } = useContext(SidebarContext);
   const { authenticated } = useContext(AuthContext);
+
+  const url = useLocation().pathname;
+
+  if (url === "/404") {
+    return null;
+  }
 
   return (
     <nav className="fixed z-50 bg-white flex items-center shadow px-7 justify-between md:pr-10 h-[50px] w-full">
