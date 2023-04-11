@@ -14,8 +14,8 @@ import Dropdown from "../../../components/Common/Input/Dropdown";
 import { sexArrData } from "../../../constantsDropdownArrayData";
 import DatePickerInput from "../../../components/Common/Input/DatePickerInput";
 import OwnerForm from "./components/OwnerForm";
-import Radio from "../../../components/Common/Input/Radio";
 import BoughtCattleForm from "./components/BoughtCattleForm";
+import DeadCattleForm from "./components/DeadCattleForm";
 
 const CreateCattle = () => {
   const [cattleFatherArr, setCattleFatherArr] = useState<DataArr[]>([]);
@@ -37,7 +37,8 @@ const CreateCattle = () => {
     defaultValues: {
       breeds: [],
       ownersIds: [],
-      wasBought: false,
+      wasBought: "Não",
+      isDead: "Não",
     },
   });
 
@@ -119,6 +120,13 @@ const CreateCattle = () => {
                 setValue={setValue}
               />
             </div>
+            <BoughtCattleForm
+              register={register}
+              setValue={setValue}
+              watch={watch}
+              control={control}
+              errors={errors}
+            />
           </div>
           <div className="w-full">
             <BreedForm
@@ -139,29 +147,12 @@ const CreateCattle = () => {
               clearErrors={clearErrors}
               getValues={getValues}
             />
-          </div>
-          <div>
-            <span>Vaca foi comprada?</span>
-            <div className="flex flex-col">
-              <Radio
-                name="wasBought"
-                register={register}
-                radioOptions={[
-                  { text: "Não", value: false },
-                  { text: "Sim", value: true },
-                ]}
-                watch={watch}
-                setValue={setValue}
-                error={errors.wasBought}
-              />
-              <BoughtCattleForm
-                register={register}
-                setValue={setValue}
-                watch={watch}
-                control={control}
-                errors={errors}
-              />
-            </div>
+            <DeadCattleForm
+              register={register}
+              setValue={setValue}
+              watch={watch}
+              errors={errors}
+            />
           </div>
         </form>
       </div>

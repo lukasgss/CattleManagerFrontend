@@ -1,39 +1,36 @@
 import React from "react";
 import {
-  Control,
   FieldErrors,
   UseFormRegister,
   UseFormSetValue,
   UseFormWatch,
 } from "react-hook-form";
 import { CreateCattleFormData } from "../types";
-import Currency from "../../../../components/Common/Input/Currency";
+import Text from "../../../../components/Common/Input/Text";
 import DatePickerInput from "../../../../components/Common/Input/DatePickerInput";
 import Radio from "../../../../components/Common/Input/Radio";
 
-type BoughtCattleFormProps = {
+type DeadCattleFormProps = {
   register: UseFormRegister<CreateCattleFormData>;
   setValue: UseFormSetValue<CreateCattleFormData>;
   watch: UseFormWatch<CreateCattleFormData>;
-  control: Control<CreateCattleFormData>;
   errors: FieldErrors<CreateCattleFormData>;
 };
 
-const BoughtCattleForm = ({
+const DeadCattleForm = ({
   register,
   setValue,
   watch,
-  control,
   errors,
-}: BoughtCattleFormProps) => {
-  const cattleWasBought = watch("wasBought");
+}: DeadCattleFormProps) => {
+  const cattleIsDead = watch("isDead");
 
   return (
     <div className="mt-2.5">
-      <span>Animal foi comprado?</span>
+      <span>Animal está morto?</span>
       <div className="flex flex-col">
         <Radio
-          name="wasBought"
+          name="isDead"
           register={register}
           radioOptions={[
             { text: "Não", value: false },
@@ -41,24 +38,26 @@ const BoughtCattleForm = ({
           ]}
           watch={watch}
           setValue={setValue}
-          error={errors.wasBought}
+          error={errors.isDead}
         />
-        {cattleWasBought !== "Não" ? (
-          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 mt-1">
+        {cattleIsDead === "Sim" ? (
+          <div className="grid grid-cols-1 gap-5 lg:grid-cols-3 mt-1">
             <DatePickerInput
-              name="purchaseDate"
+              name="dateOfDeath"
               register={register}
-              labelText="Data da compra"
-              placeholder="15/11/2021"
+              labelText="Data da morte"
+              placeholder="31/10/2020"
               setValue={setValue}
             />
-            <Currency
-              name="priceInCentsInReais"
-              labelText="Preço em reais"
-              placeholder="8.500,00"
-              control={control}
-              error={errors.priceInCentsInReais}
-            />
+            <div className="lg:col-span-2">
+              <Text
+                name="causeOfDeath"
+                register={register}
+                labelText="Causa da morte"
+                placeholder="Brucelose"
+                error={errors.causeOfDeath}
+              />
+            </div>
           </div>
         ) : null}
       </div>
@@ -66,4 +65,4 @@ const BoughtCattleForm = ({
   );
 };
 
-export default BoughtCattleForm;
+export default DeadCattleForm;

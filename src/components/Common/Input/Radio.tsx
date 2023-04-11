@@ -38,7 +38,7 @@ const Radio = ({
   const fieldValue = watch(name);
 
   const changeValue = (option: RadioDataArr) => {
-    setValue(name, option.value);
+    setValue(name, option.text);
     onChangeValue?.(option.value);
   };
 
@@ -58,7 +58,7 @@ const Radio = ({
               {...register(name)}
               onChange={() => changeValue(option)}
               value={option.text}
-              checked={fieldValue === option.value}
+              checked={fieldValue === option.text}
               className={`block w-[24px] border border-solid rounded transition ease-in-out focus:outline-none
                peer mr-5 ${error ? "border-error" : ""}`}
             />

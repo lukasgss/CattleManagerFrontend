@@ -49,7 +49,7 @@ const SidebarNav = ({
                 >
                   <BsArrowLeftShort
                     title={sidebarCollapsed ? "Expandir" : "Retrair"}
-                    className={`w-8 h-8 bg-[#3b94fa] text-white rounded-full hover:brightness-110 transition duration-300 ${
+                    className={`w-8 h-8 bg-[var(--primary-blue)] text-white rounded-full hover:brightness-110 transition duration-300 ${
                       sidebarCollapsed ? "rotate-180" : ""
                     }`}
                   />
