@@ -10,14 +10,13 @@ import FormErrorMessage from "../../FormErrorMessage";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 
-import "./styles/index.scss";
-
 type DatePickerProps = {
   name: string;
   labelText: string;
   setValue: UseFormSetValue<any>;
   register: UseFormRegister<any>;
   placeholder?: string;
+  doesNotKnowDateOfBirth?: boolean;
   error?: FieldError;
 };
 
@@ -27,9 +26,10 @@ const DatePickerInput = ({
   labelText,
   setValue,
   placeholder,
+  doesNotKnowDateOfBirth,
   error,
 }: DatePickerProps) => {
-  const [selectedDate, setSelectedDate] = useState<Date>();
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>();
   const [calendarOpen, setCalendarOpen] = useState(false);
 
   const calendarRef = useRef<any>(null);
@@ -42,21 +42,45 @@ const DatePickerInput = ({
     setCalendarOpen(false);
   };
 
+  const clearDateValue = () => {
+    setValue("dateOfBirth", null);
+    setSelectedDate(undefined);
+  };
+
   return (
     <div className="w-full flex flex-col gap-0.5">
-      <label htmlFor={name} className="pl-0.5">
-        {labelText}
-      </label>
+      <div className="flex justify-between">
+        <label htmlFor={name} className="pl-0.5 w-full">
+          {labelText}
+        </label>
+        <div className="flex flex-col items-end justify-end text-right w-fit">
+          <label
+            className="text-sm flex gap-2"
+            htmlFor="doesNotKnowDateOfBirth"
+          >
+            <span className="whitespace-nowrap">Não sei</span>
+            <input
+              type="checkbox"
+              {...register("doesNotKnowDateOfBirth")}
+              onClick={clearDateValue}
+            />
+          </label>
+        </div>
+      </div>
       <div className="relative">
         <input
           id={name}
           {...register(name)}
           placeholder={placeholder}
-          className="bg-[var(--primary-light-gray)] w-full px-5 pl-10 py-3 border rounded-xl focus:outline--gray-500 border-none focus:ring-0"
+          className="bg-[var(--primary-light-gray)] w-full px-5 pl-10 py-3 border rounded-xl focus:outline--gray-500 border-none focus:ring-0
+           disabled:cursor-not-allowed disabled:bg-gray-300"
           value={
             selectedDate ? format(selectedDate, "dd/MM/yyyy") : initialDate
           }
-          onClick={() => setCalendarOpen(true)}
+          onClick={() =>
+            doesNotKnowDateOfBirth ? undefined : setCalendarOpen(true)
+          }
+          disabled={doesNotKnowDateOfBirth}
         />
         <AiOutlineCalendar className="absolute h-5 w-5 top-3.5 left-2.5" />
       </div>
@@ -75,7 +99,7 @@ const DatePickerInput = ({
                 minDate={addYears(new Date(), -30)}
                 weekStartsOn={0}
                 locale={pt}
-                date={selectedDate as undefined}
+                date={selectedDate}
                 className="shadow-xl rounded-md w-full"
               />
             </div>

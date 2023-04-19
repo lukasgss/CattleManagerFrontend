@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FieldErrors, UseFormRegister, UseFormSetValue } from "react-hook-form";
 import Text from "../../../../components/Common/Input/Text";
 import AutoComplete from "../../../../components/Common/Input/AutoComplete";
@@ -16,17 +16,21 @@ type CattleFormDataProps = {
   register: UseFormRegister<CreateCattleFormData>;
   errors: FieldErrors<CreateCattleFormData>;
   setValue: UseFormSetValue<CreateCattleFormData>;
+  doesNotKnowDateOfBirth: boolean;
 };
 
 const CattleDataForm = ({
   register,
   errors,
   setValue,
+  doesNotKnowDateOfBirth,
 }: CattleFormDataProps) => {
   const [cattleFatherArr, setCattleFatherArr] = useState<DataArr[]>([]);
   const [cattleMotherArr, setCattleMotherArr] = useState<DataArr[]>([]);
+  const [yearsArr, setYearsArr] = useState<DataArr[]>([]);
 
   const [selectedItem, setSelectedItem] = useState<DataArr | null>(null);
+  const [selectedYear, setSelectedYear] = useState<DataArr | null>(null);
 
   const onChangeSearchFather = async (searchTerm: string) => {
     if (searchTerm === "") {
@@ -43,6 +47,21 @@ const CattleDataForm = ({
     const { data } = await GetFemaleCattleByName(searchTerm);
     setCattleMotherArr(data);
   };
+
+  useEffect(() => {
+    const fillYearDropdowns = () => {
+      let year = new Date().getFullYear();
+      const arr: DataArr[] = [];
+      for (let i = 0; i <= 30; i++) {
+        arr.push({ text: String(year), value: year });
+        year--;
+      }
+
+      setYearsArr(arr);
+    };
+
+    fillYearDropdowns();
+  }, []);
 
   return (
     <div className="flex flex-col gap-2 5">
@@ -93,8 +112,21 @@ const CattleDataForm = ({
           placeholder="19/12/2002"
           labelText="Data de nascimento"
           setValue={setValue}
+          doesNotKnowDateOfBirth={doesNotKnowDateOfBirth}
         />
       </div>
+      {doesNotKnowDateOfBirth ? (
+        <Dropdown
+          register={register}
+          name="yearOfBirth"
+          placeholder="2021"
+          labelText="Ano de nascimento"
+          selectedItem={selectedYear}
+          setSelectedItem={setSelectedYear}
+          dataArr={yearsArr}
+          setValue={setValue}
+        />
+      ) : null}
     </div>
   );
 };

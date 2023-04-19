@@ -11,6 +11,7 @@ export type CreateCattleFormData = {
   sexId: 0 | 1;
   breeds: BreedFormData[];
   breedName: string;
+  doesNotKnowDateOfBirth: boolean;
   breedQuantity: string;
   wasBought: "Não" | "Sim";
   purchaseDate: Date | null;

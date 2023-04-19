@@ -32,6 +32,8 @@ const CreateCattle = () => {
     //
   });
 
+  const doesNotKnowDateOfBirth = watch("doesNotKnowDateOfBirth");
+
   return (
     <MainPage>
       <div className="bg-white shadow rounded-md mx-auto">
@@ -45,6 +47,7 @@ const CreateCattle = () => {
               register={register}
               setValue={setValue}
               errors={errors}
+              doesNotKnowDateOfBirth={doesNotKnowDateOfBirth}
             />
             <BoughtCattleForm
               register={register}

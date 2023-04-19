@@ -23,6 +23,7 @@
   "rules": {
     "react/jsx-key": "error",
     "react/require-default-props": "off",
+    "no-plusplus": "off",
     "react/function-component-definition": [
       "off",
       { "namedComponents": "function-declaration" }
