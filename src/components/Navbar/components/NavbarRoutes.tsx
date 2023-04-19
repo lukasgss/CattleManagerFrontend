@@ -1,28 +1,32 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { Link, useLocation } from "react-router-dom";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { GoMail } from "react-icons/go";
 import { AuthContext } from "../../../contexts/AuthContext/authContext";
 
 import defaultProfilePicture from "../../../assets/img/defaultProfilePicture.webp";
+import { GetAmountOfMessageNotifications } from "../../../services/Notifications";
+import { nonAuthenticatedRoutes } from "./nonAuthenticatedRoutes";
+import AmountOfNotifications from "./AmountOfNotifications";
 
 const NavbarRoutes = () => {
   const { authenticated, userData } = useContext(AuthContext);
 
-  const nonAuthenticatedRoutes = [
-    {
-      text: "Início",
-      link: "/",
-    },
-    {
-      text: "Cadastro",
-      link: "/cadastro",
-    },
-    {
-      text: "Login",
-      link: "/login",
-    },
-  ];
+  const url = useLocation().pathname;
+
+  const {
+    data: requestData,
+    isSuccess,
+    refetch,
+  } = useQuery({
+    queryKey: ["notificationAmount"],
+    queryFn: GetAmountOfMessageNotifications,
+  });
+
+  useEffect(() => {
+    refetch();
+  }, [url]);
 
   return (
     <div className="flex gap-7">
@@ -32,7 +36,13 @@ const NavbarRoutes = () => {
             <IoMdNotificationsOutline className="w-6 h-6 hover:brightness-150" />
           </button>
           <button type="button" aria-label="mensagens" title="Mensagens">
-            <GoMail className="w-6 h-6 hover:brighness-150" />
+            <div className="relative">
+              <GoMail className="w-6 h-6 hover:brighness-150" />
+              <AmountOfNotifications
+                isSuccess={isSuccess}
+                notificationAmount={requestData?.data.amount}
+              />
+            </div>
           </button>
           <Link
             to="/perfil"
