@@ -33,11 +33,11 @@ const NavbarRoutes = () => {
       {authenticated ? (
         <>
           <button type="button" aria-label="notificações" title="Notificações">
-            <IoMdNotificationsOutline className="w-6 h-6 hover:brightness-150" />
+            <IoMdNotificationsOutline className="w-8 h-8 hover:brightness-150" />
           </button>
           <button type="button" aria-label="mensagens" title="Mensagens">
             <div className="relative">
-              <GoMail className="w-6 h-6 hover:brighness-150" />
+              <GoMail className="w-8 h-8 hover:brighness-150" />
               <AmountOfNotifications
                 isSuccess={isSuccess}
                 notificationAmount={requestData?.data.amount}
@@ -48,7 +48,11 @@ const NavbarRoutes = () => {
             to="/perfil"
             title={`${userData?.firstName} ${userData?.lastName}`}
           >
-            <img src={defaultProfilePicture} alt="" className="w-7" />
+            <img
+              src={defaultProfilePicture}
+              alt="imagem de perfil"
+              className="w-9"
+            />
           </Link>
         </>
       ) : (

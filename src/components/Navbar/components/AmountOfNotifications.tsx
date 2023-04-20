@@ -10,7 +10,7 @@ const AmountOfNotifications = ({
   isSuccess,
 }: AmountOfNotificationsProps) => {
   return isSuccess && notificationAmount && notificationAmount > 0 ? (
-    <div className="absolute w-4 h-4 top-[-5px] right-[-5px] rounded-full bg-[var(--primary-pink)] flex items-center justify-center">
+    <div className="absolute w-4 h-4 top-[-2px] right-[-5px] rounded-full bg-[var(--primary-pink)] flex items-center justify-center">
       <span className="text-white text-xs">{notificationAmount}</span>
     </div>
   ) : null;
