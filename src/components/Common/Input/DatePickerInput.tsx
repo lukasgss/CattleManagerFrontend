@@ -16,6 +16,7 @@ type DatePickerProps = {
   setValue: UseFormSetValue<any>;
   register: UseFormRegister<any>;
   placeholder?: string;
+  doesNotKnowDateOption?: boolean;
   doesNotKnowDateOfBirth?: boolean;
   error?: FieldError;
 };
@@ -26,6 +27,7 @@ const DatePickerInput = ({
   labelText,
   setValue,
   placeholder,
+  doesNotKnowDateOption,
   doesNotKnowDateOfBirth,
   error,
 }: DatePickerProps) => {
@@ -58,13 +60,17 @@ const DatePickerInput = ({
             className="text-sm flex gap-2"
             htmlFor="doesNotKnowDateOfBirth"
           >
-            <span className="whitespace-nowrap">Não sei</span>
-            <input
-              type="checkbox"
-              autoComplete="off"
-              {...register("doesNotKnowDateOfBirth")}
-              onClick={clearDateValue}
-            />
+            {doesNotKnowDateOption ? (
+              <>
+                <span className="whitespace-nowrap">Não sei</span>
+                <input
+                  type="checkbox"
+                  autoComplete="off"
+                  {...register("doesNotKnowDateOfBirth")}
+                  onClick={clearDateValue}
+                />
+              </>
+            ) : null}
           </label>
         </div>
       </div>
@@ -94,7 +100,7 @@ const DatePickerInput = ({
           hideOnEscape={() => setCalendarOpen(false)}
         >
           <div className="relative" ref={calendarRef}>
-            <div className="absolute w-full z-[1000]">
+            <div className="absolute w-full z-[1000] pb-10">
               <Calendar
                 onChange={(date) => onChangeDate(date)}
                 maxDate={new Date()}

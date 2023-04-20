@@ -168,9 +168,9 @@ const BreedForm = ({
   };
 
   return (
-    <div className="flex flex-col gap-1.5">
-      <div className="flex flex-col lg:flex-row items-end gap-5">
-        <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-5">
+    <div className="flex flex-col gap-3 lg:gap-1.5">
+      <div className="flex flex-col gap-3 xl:flex-row items-end xl:gap-5">
+        <div className="w-full grid grid-cols-1 gap-3 xl:grid-cols-2 xl:gap-5">
           <DropdownWithSearch
             name="breedName"
             register={register}
@@ -189,7 +189,7 @@ const BreedForm = ({
             error={errors?.breedQuantity}
           />
         </div>
-        <div className="w-full lg:w-fit">
+        <div className="w-full xl:w-fit">
           <Button
             ariaLabel="adicionar raça"
             action={() =>

@@ -21,7 +21,7 @@ const Button = ({
   transparent,
 }: ButtonProps) => {
   return (
-    <div>
+    <div className="w-full">
       <button
         type={submit ? "submit" : "button"}
         aria-label={ariaLabel}

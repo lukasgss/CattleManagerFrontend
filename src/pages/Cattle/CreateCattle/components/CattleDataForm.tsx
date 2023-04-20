@@ -64,7 +64,7 @@ const CattleDataForm = ({
   }, []);
 
   return (
-    <div className="flex flex-col gap-2 5">
+    <div className="flex flex-col gap-3">
       <Text
         name="name"
         register={register}
@@ -72,7 +72,7 @@ const CattleDataForm = ({
         error={errors.name}
         labelText="Nome do animal"
       />
-      <div className="lg:flex gap-5">
+      <div className="flex flex-col gap-3 xl:flex-row">
         <AutoComplete
           name="fatherId"
           register={register}
@@ -94,7 +94,7 @@ const CattleDataForm = ({
           dataArr={cattleMotherArr}
         />
       </div>
-      <div className="flex flex-col lg:flex-row lg:items-center gap-2 lg:gap-5">
+      <div className="flex flex-col gap-3 2xl:flex-row 2xl:gap-5">
         <Dropdown
           labelText="Sexo"
           name="sexId"
@@ -113,6 +113,7 @@ const CattleDataForm = ({
           labelText="Data de nascimento"
           setValue={setValue}
           doesNotKnowDateOfBirth={doesNotKnowDateOfBirth}
+          doesNotKnowDateOption
         />
       </div>
       {doesNotKnowDateOfBirth ? (

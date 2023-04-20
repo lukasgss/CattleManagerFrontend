@@ -41,7 +41,7 @@ const DeadCattleForm = ({
           error={errors.isDead}
         />
         {cattleIsDead === "Sim" ? (
-          <div className="grid grid-cols-1 gap-5 lg:grid-cols-3 mt-1">
+          <div className="grid grid-cols-1 gap-3 xl:grid-cols-2 2xl:grid-cols-3 xl:gap-5 mt-1">
             <DatePickerInput
               name="dateOfDeath"
               register={register}
@@ -49,7 +49,7 @@ const DeadCattleForm = ({
               placeholder="31/10/2020"
               setValue={setValue}
             />
-            <div className="lg:col-span-2">
+            <div className="2xl:col-span-2">
               <Text
                 name="causeOfDeath"
                 register={register}

@@ -29,7 +29,7 @@ const BoughtCattleForm = ({
   const cattleWasBought = watch("wasBought");
 
   return (
-    <div className="mt-2.5">
+    <div className="mt-5">
       <span>Animal foi comprado?</span>
       <div className="flex flex-col">
         <Radio
@@ -44,7 +44,7 @@ const BoughtCattleForm = ({
           error={errors.wasBought}
         />
         {cattleWasBought !== "Não" ? (
-          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 mt-1">
+          <div className="grid grid-cols-1 gap-3 xl:grid-cols-2 xl:gap-5 mt-1">
             <DatePickerInput
               name="purchaseDate"
               register={register}

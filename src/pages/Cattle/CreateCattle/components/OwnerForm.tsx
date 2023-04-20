@@ -107,7 +107,7 @@ const OwnerForm = ({
   return (
     <div className="flex flex-col gap-1.5">
       <div className="flex flex-col lg:flex-row items-end gap-5">
-        <div className="flex flex-col w-full gap-5 lg:flex-row lg:items-end">
+        <div className="flex flex-col w-full gap-3 xl:flex-row lg:items-end xl:gap-5">
           <MultiAddAutoComplete
             name="ownerName"
             register={register}
@@ -122,9 +122,11 @@ const OwnerForm = ({
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
           />
-          <Button ariaLabel="adicionar dono" action={addOwner}>
-            Adicionar
-          </Button>
+          <div className="w-full xl:w-fit">
+            <Button ariaLabel="adicionar dono" action={addOwner}>
+              Adicionar
+            </Button>
+          </div>
         </div>
       </div>
       <div className="mt-2">

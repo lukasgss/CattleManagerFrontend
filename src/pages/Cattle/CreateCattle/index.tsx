@@ -107,52 +107,51 @@ const CreateCattle = () => {
       <Toaster />
       <div className="bg-white shadow rounded-md mx-auto">
         <h2 className="text-3xl p-5 pb-0">Cadastrar gado</h2>
-        <form
-          onSubmit={onSubmit}
-          className="py-8 px-5 grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-10 w-full"
-        >
-          <div className="flex flex-col gap-2.5 w-full">
-            <CattleDataForm
-              register={register}
-              setValue={setValue}
-              errors={errors}
-              doesNotKnowDateOfBirth={doesNotKnowDateOfBirth}
-            />
-            <BoughtCattleForm
-              register={register}
-              setValue={setValue}
-              watch={watch}
-              control={control}
-              errors={errors}
-            />
+        <form onSubmit={onSubmit}>
+          <div className="py-8 px-5 grid grid-cols-1 lg:grid-cols-2 gap-1 lg:gap-10 w-full">
+            <div className="w-full">
+              <CattleDataForm
+                register={register}
+                setValue={setValue}
+                errors={errors}
+                doesNotKnowDateOfBirth={doesNotKnowDateOfBirth}
+              />
+              <BoughtCattleForm
+                register={register}
+                setValue={setValue}
+                watch={watch}
+                control={control}
+                errors={errors}
+              />
+            </div>
+            <div className="w-full">
+              <BreedForm
+                register={register}
+                setValue={setValue}
+                setError={setError}
+                control={control}
+                errors={errors}
+                getValues={getValues}
+                watch={watch}
+                clearErrors={clearErrors}
+              />
+              <OwnerForm
+                register={register}
+                setValue={setValue}
+                setError={setError}
+                errors={errors}
+                clearErrors={clearErrors}
+                getValues={getValues}
+              />
+              <DeadCattleForm
+                register={register}
+                setValue={setValue}
+                watch={watch}
+                errors={errors}
+              />
+            </div>
           </div>
-          <div className="w-full">
-            <BreedForm
-              register={register}
-              setValue={setValue}
-              setError={setError}
-              control={control}
-              errors={errors}
-              getValues={getValues}
-              watch={watch}
-              clearErrors={clearErrors}
-            />
-            <OwnerForm
-              register={register}
-              setValue={setValue}
-              setError={setError}
-              errors={errors}
-              clearErrors={clearErrors}
-              getValues={getValues}
-            />
-            <DeadCattleForm
-              register={register}
-              setValue={setValue}
-              watch={watch}
-              errors={errors}
-            />
-          </div>
-          <div className="col-start-2 flex justify-end">
+          <div className="flex justify-end p-4 pt-0 w-full lg:w-fit lg:ml-auto">
             <Button ariaLabel="cadastrar gado" submit>
               Cadastrar
             </Button>
