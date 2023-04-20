@@ -1,5 +1,7 @@
 import React from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import MainPage from "../../../components/MainPage";
 import BreedForm from "./components/BreedForm";
@@ -10,6 +12,7 @@ import DeadCattleForm from "./components/DeadCattleForm";
 import CattleDataForm from "./components/CattleDataForm";
 import Button from "../../../components/Common/Button";
 import { CreateNewCattle } from "../../../services/Cattle";
+import SuccessNotification from "../../../components/Common/ToastNotifications/SuccessNotification";
 
 const CreateCattle = () => {
   const {
@@ -32,11 +35,34 @@ const CreateCattle = () => {
     },
   });
 
+  const notifySuccess = () =>
+    toast.custom(
+      (t) => (
+        <SuccessNotification
+          t={t}
+          text={
+            <>
+              Gado cadastrado com sucesso! Veja seus animais cadastrados{" "}
+              <Link to="/gado" className="underline poppins-semi-bold">
+                aqui
+              </Link>
+              .
+            </>
+          }
+        />
+      ),
+      {
+        duration: 15000,
+      }
+    );
   const createCattle = useMutation({
     mutationFn: async (cattleData: CreateCattleFormDataRequest) => {
       await CreateNewCattle(cattleData);
     },
-    onSuccess: () => reset(),
+    onSuccess: () => {
+      reset();
+      notifySuccess();
+    },
   });
 
   const onSubmit = handleSubmit(async (formData: CreateCattleFormData) => {
@@ -78,6 +104,7 @@ const CreateCattle = () => {
 
   return (
     <MainPage>
+      <Toaster />
       <div className="bg-white shadow rounded-md mx-auto">
         <h2 className="text-3xl p-5 pb-0">Cadastrar gado</h2>
         <form
