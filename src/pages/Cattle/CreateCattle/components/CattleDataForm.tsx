@@ -66,7 +66,7 @@ const CattleDataForm = ({
   return (
     <div className="flex flex-col gap-2 5">
       <Text
-        name="cattleName"
+        name="name"
         register={register}
         placeholder="Amora"
         error={errors.name}

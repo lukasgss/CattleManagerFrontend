@@ -1,12 +1,15 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
 import MainPage from "../../../components/MainPage";
 import BreedForm from "./components/BreedForm";
-import { CreateCattleFormData } from "./types";
+import { CreateCattleFormData, CreateCattleFormDataRequest } from "./types";
 import OwnerForm from "./components/OwnerForm";
 import BoughtCattleForm from "./components/BoughtCattleForm";
 import DeadCattleForm from "./components/DeadCattleForm";
 import CattleDataForm from "./components/CattleDataForm";
+import Button from "../../../components/Common/Button";
+import { CreateNewCattle } from "../../../services/Cattle";
 
 const CreateCattle = () => {
   const {
@@ -18,6 +21,7 @@ const CreateCattle = () => {
     control,
     clearErrors,
     watch,
+    reset,
     formState: { errors },
   } = useForm<CreateCattleFormData>({
     defaultValues: {
@@ -28,8 +32,46 @@ const CreateCattle = () => {
     },
   });
 
-  const onSubmit = handleSubmit(() => {
-    //
+  const createCattle = useMutation({
+    mutationFn: async (cattleData: CreateCattleFormDataRequest) => {
+      await CreateNewCattle(cattleData);
+    },
+    onSuccess: () => reset(),
+  });
+
+  const onSubmit = handleSubmit(async (formData: CreateCattleFormData) => {
+    const formattedBreedsArr = formData.breeds.map((breed) => ({
+      breedId: breed.breedId,
+      quantityInPercentage: breed.quantityInPercentage,
+    }));
+
+    const yearOfBirth = formData.dateOfBirth
+      ? parseInt(formData.dateOfBirth.toString().split("-")[0], 10)
+      : formData.yearOfBirth;
+
+    const ownersIds = [
+      ...formData.ownersIds,
+      localStorage.getItem("userId"),
+    ] as string[];
+
+    const cattleData: CreateCattleFormDataRequest = {
+      name: formData.name,
+      fatherId: formData.fatherId || null,
+      motherId: formData.motherId || null,
+      sexId: formData.sexId,
+      breeds: formattedBreedsArr,
+      purchaseDate: formData.purchaseDate || null,
+      dateOfBirth: formData.dateOfBirth || null,
+      yearOfBirth,
+      image: formData.image || null,
+      dateOfDeath: formData.dateOfDeath || null,
+      causeOfDeath: formData.causeOfDeath || null,
+      dateOfSale: formData.dateOfSale || null,
+      priceInCentsInReais: formData.priceInCentsInReais ?? null,
+      ownersIds,
+    };
+
+    createCattle.mutate(cattleData);
   });
 
   const doesNotKnowDateOfBirth = watch("doesNotKnowDateOfBirth");
@@ -82,6 +124,11 @@ const CreateCattle = () => {
               watch={watch}
               errors={errors}
             />
+          </div>
+          <div className="col-start-2 flex justify-end">
+            <Button ariaLabel="cadastrar gado" submit>
+              Cadastrar
+            </Button>
           </div>
         </form>
       </div>

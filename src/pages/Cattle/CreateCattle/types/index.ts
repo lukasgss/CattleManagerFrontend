@@ -16,7 +16,7 @@ export type CreateCattleFormData = {
   wasBought: "Não" | "Sim";
   purchaseDate: Date | null;
   conceptionDateDate: Date | null;
-  dateOfBirth: string | null;
+  dateOfBirth: Date | null;
   yearOfBirth: number;
   image: string | null;
   isDead: "Não" | "Sim";
@@ -25,5 +25,27 @@ export type CreateCattleFormData = {
   dateOfSale: Date | null;
   priceInCentsInReais: number | null;
   ownerName: string;
+  ownersIds: string[];
+};
+
+type BreedFormDataRequest = {
+  breedId: string;
+  quantityInPercentage: number;
+};
+
+export type CreateCattleFormDataRequest = {
+  name: string;
+  fatherId: string | null;
+  motherId: string | null;
+  sexId: 0 | 1;
+  breeds: BreedFormDataRequest[];
+  purchaseDate: Date | null;
+  dateOfBirth: Date | null;
+  yearOfBirth: number;
+  image: string | null;
+  dateOfDeath: Date | null;
+  causeOfDeath: string | null;
+  dateOfSale: Date | null;
+  priceInCentsInReais: number | null;
   ownersIds: string[];
 };
