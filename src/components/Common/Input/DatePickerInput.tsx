@@ -61,6 +61,7 @@ const DatePickerInput = ({
             <span className="whitespace-nowrap">Não sei</span>
             <input
               type="checkbox"
+              autoComplete="off"
               {...register("doesNotKnowDateOfBirth")}
               onClick={clearDateValue}
             />
@@ -72,6 +73,7 @@ const DatePickerInput = ({
           id={name}
           {...register(name)}
           placeholder={placeholder}
+          autoComplete="off"
           className="bg-[var(--primary-light-gray)] w-full px-5 pl-10 py-3 border rounded-xl focus:outline--gray-500 border-none focus:ring-0
            disabled:cursor-not-allowed disabled:bg-gray-300"
           value={
