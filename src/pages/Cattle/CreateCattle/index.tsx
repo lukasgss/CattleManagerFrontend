@@ -1,8 +1,7 @@
-import React from "react";
-import toast, { Toaster } from "react-hot-toast";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import MainPage from "../../../components/MainPage";
 import BreedForm from "./components/BreedForm";
 import { CreateCattleFormData, CreateCattleFormDataRequest } from "./types";
@@ -12,9 +11,18 @@ import DeadCattleForm from "./components/DeadCattleForm";
 import CattleDataForm from "./components/CattleDataForm";
 import Button from "../../../components/Common/Button";
 import { CreateNewCattle } from "../../../services/Cattle";
+import { ServerError } from "../../../types/error";
 import SuccessNotification from "../../../components/Common/ToastNotifications/SuccessNotification";
+import ErrorNotification from "../../../components/Common/ToastNotifications/ErrorNotification";
 
 const CreateCattle = () => {
+  const [successNotificationIsOpen, setSuccessNotificationIsOpen] =
+    useState(false);
+  const [errorNotificationIsOpen, setErrorNotificationIsOpen] = useState(false);
+  const [errorNotificationMessage, setErrorNotificationMessage] = useState<
+    string | null
+  >(null);
+
   const {
     register,
     handleSubmit,
@@ -35,33 +43,23 @@ const CreateCattle = () => {
     },
   });
 
-  const notifySuccess = () =>
-    toast.custom(
-      (t) => (
-        <SuccessNotification
-          t={t}
-          text={
-            <>
-              Gado cadastrado com sucesso! Veja seus animais cadastrados{" "}
-              <Link to="/gado" className="underline poppins-semi-bold">
-                aqui
-              </Link>
-              .
-            </>
-          }
-        />
-      ),
-      {
-        duration: 15000,
-      }
-    );
   const createCattle = useMutation({
     mutationFn: async (cattleData: CreateCattleFormDataRequest) => {
       await CreateNewCattle(cattleData);
     },
     onSuccess: () => {
+      setSuccessNotificationIsOpen(true);
       reset();
-      notifySuccess();
+    },
+    onError: (error: AxiosError<ServerError>) => {
+      setErrorNotificationIsOpen(true);
+      if (error.code === "ERR_NETWORK") {
+        setErrorNotificationMessage(
+          "Não foi possível obter conexão de internet, tente novamente mais tarde."
+        );
+      } else {
+        setErrorNotificationMessage(error.response?.data.message as string);
+      }
     },
   });
 
@@ -104,8 +102,19 @@ const CreateCattle = () => {
 
   return (
     <MainPage>
-      <Toaster />
-      <div className="bg-white shadow rounded-md mx-auto">
+      <div className="relative bg-white shadow rounded-md mx-auto">
+        {successNotificationIsOpen ? (
+          <SuccessNotification
+            text="Gado cadastrado com sucesso."
+            setIsOpen={setSuccessNotificationIsOpen}
+          />
+        ) : null}
+        {errorNotificationIsOpen ? (
+          <ErrorNotification
+            text={errorNotificationMessage}
+            setIsOpen={setErrorNotificationIsOpen}
+          />
+        ) : null}
         <h2 className="text-3xl p-5 pb-0">Cadastrar gado</h2>
         <form onSubmit={onSubmit}>
           <div className="py-8 px-5 grid grid-cols-1 lg:grid-cols-2 gap-1 lg:gap-10 w-full">
