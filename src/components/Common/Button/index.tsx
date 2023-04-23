@@ -8,6 +8,7 @@ type ButtonProps = {
   ariaLabel: string;
   className?: string;
   action?: (...params: (number | object | string)[]) => void;
+  color?: "marineBlue";
   transparent?: boolean;
 };
 
@@ -18,6 +19,7 @@ const Button = ({
   className,
   ariaLabel,
   action,
+  color,
   transparent,
 }: ButtonProps) => {
   return (
@@ -32,7 +34,8 @@ const Button = ({
           transparent
             ? "bg-transparent border-2 border-[var(--primary-blue)] text-[var(--primary-blue)] hover:bg-var(--secondary-light-gray)]"
             : "text-white bg-[var(--primary-blue)]"
-        }`}
+        } ${color === "marineBlue" ? "!bg-[var(--marine-blue)]" : ""}
+        `}
         disabled={loading}
         onClick={action}
       >

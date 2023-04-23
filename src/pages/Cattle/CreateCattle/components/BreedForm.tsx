@@ -199,6 +199,7 @@ const BreedForm = ({
                 quantity: getValues("breedQuantity"),
               })
             }
+            color="marineBlue"
           >
             Adicionar
           </Button>

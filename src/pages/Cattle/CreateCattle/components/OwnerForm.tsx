@@ -123,7 +123,11 @@ const OwnerForm = ({
             setSearchTerm={setSearchTerm}
           />
           <div className="w-full xl:w-fit">
-            <Button ariaLabel="adicionar dono" action={addOwner}>
+            <Button
+              ariaLabel="adicionar dono"
+              action={addOwner}
+              color="marineBlue"
+            >
               Adicionar
             </Button>
           </div>
