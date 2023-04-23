@@ -96,12 +96,12 @@ const OwnerForm = ({
     const updatedOwners = addedOwners.filter((owner) =>
       owner.value !== ownerToRemove.value ? owner : null
     );
-    const formUpdatedBreeds = getValues("ownersIds").filter((ownerId) =>
+    const formUpdatedOwners = getValues("ownersIds").filter((ownerId) =>
       ownerToRemove.value !== ownerId ? ownerId : null
     );
 
     setAddedOwners(updatedOwners);
-    setValue("breeds", formUpdatedBreeds);
+    setValue("ownersIds", formUpdatedOwners);
   };
 
   return (
