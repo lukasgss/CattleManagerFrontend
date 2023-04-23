@@ -22,15 +22,19 @@ const NotFound = () => {
           Desculpe, a página que você está procurando não existe. Se você acha
           que há um problema, contate-nos.
         </span>
-        <div className="flex mx-auto max-w-3xl gap-5 lg:gap-8 mt-5">
-          <Button ariaLabel="voltar para página inicial">
-            <Link to="/home" className="!no-underline">
-              Página inicial
-            </Link>
-          </Button>
-          <Button ariaLabel="contatar" transparent>
-            Contate-nos
-          </Button>
+        <div className="flex justify-center max-w-3xl gap-5 lg:gap-8 mt-5">
+          <div>
+            <Button ariaLabel="voltar para página inicial">
+              <Link to="/home" className="!no-underline">
+                Página inicial
+              </Link>
+            </Button>
+          </div>
+          <div>
+            <Button ariaLabel="contatar" transparent>
+              Contate-nos
+            </Button>
+          </div>
         </div>
       </div>
     </div>

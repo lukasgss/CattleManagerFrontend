@@ -28,7 +28,7 @@ const Button = ({
         type={submit ? "submit" : "button"}
         aria-label={ariaLabel}
         className={`px-5 py-3 rounded-lg w-full poppins-semi-bold
-         disabled:bg-gray-200 disabled:cursor-not-allowed ${
+         disabled:bg-gray-200 disabled:cursor-not-allowed border-2 border-[var(--primary-blue)] ${
            loading ? "" : "hover:brightness-110"
          } ${className} ${
           transparent
