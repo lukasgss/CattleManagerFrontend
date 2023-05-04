@@ -74,9 +74,9 @@ const Dropdown = ({
             <div
               ref={dropdownRef}
               className="dropdown-scrollbar absolute top-2 max-h-64 bg-white w-full overflow-y-auto
-               shadow-lg rounded ring-1 ring-black ring-opacity-5 py-2 z-30"
+               shadow-lg rounded-md ring-1 ring-black ring-opacity-5 py-2 z-[999]"
             >
-              <ul className="flex flex-col gap-0.5 mt-2">
+              <ul className="flex flex-col gap-0.5 mt-2 z-[999]">
                 {dataArr.length > 0 ? (
                   dataArr.map((data) => (
                     <li key={data.value}>

@@ -9,6 +9,7 @@ import Sidebar from "../components/NavSidebar/Sidebar";
 import CreateCattle from "../pages/Cattle/CreateCattle";
 import NotFound from "../pages/NotFound";
 import Home from "../pages/Home";
+import MilkProductions from "../pages/MilkProductions";
 
 const AppRoutes = () => {
   return (
@@ -23,6 +24,7 @@ const AppRoutes = () => {
               <Route path="/login" element={<Login />} />
               <Route path="/cadastro" element={<Register />} />
               <Route path="/cadastro-gado" element={<CreateCattle />} />
+              <Route path="/producoes-leite" element={<MilkProductions />} />
               <Route path="/404" element={<NotFound />} />
               <Route path="*" element={<Navigate to="/404" replace />} />
             </Routes>

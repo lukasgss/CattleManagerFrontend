@@ -32,7 +32,7 @@ const Button = ({
            loading ? "" : "hover:brightness-110"
          } ${className} ${
           transparent
-            ? "bg-transparent border-2 border-[var(--primary-blue)] text-[var(--primary-blue)] hover:bg-var(--secondary-light-gray)]"
+            ? "bg-transparent border-2 border-transparent text-[#667085] hover:bg-var(--secondary-light-gray)]"
             : "text-white bg-[var(--primary-blue)]"
         } ${
           color === "marineBlue"
