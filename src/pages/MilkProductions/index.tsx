@@ -9,7 +9,7 @@ const MilkProductions = () => {
 
   const [successNotificationIsOpen, setSuccessNotificationIsOpen] =
     useState(false);
-  const [errorNotificationIsOpen, setErrorNotificationIsOpen] = useState(true);
+  const [errorNotificationIsOpen, setErrorNotificationIsOpen] = useState(false);
   const [errorNotificationMessage, setErrorNotificationMessage] = useState<
     string | null
   >(null);
