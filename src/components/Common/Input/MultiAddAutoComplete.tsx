@@ -65,8 +65,7 @@ const AutoComplete = ({
   const selectItem = (item: DataArr) => {
     setSelectedItem(item);
     setSearchTerm(item.text);
-    setValue(name, item.value);
-
+    setValue(name, item.value, { shouldValidate: true });
     setExpanded(false);
   };
 

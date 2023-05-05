@@ -33,7 +33,7 @@ const Dropdown = ({
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   const selectItem = (item: DataArr) => {
-    setValue(name as any, item.value);
+    setValue(name as any, item.value, { shouldValidate: true });
     setSelectedItem(item);
     setExpanded(false);
   };

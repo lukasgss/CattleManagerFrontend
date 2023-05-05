@@ -40,7 +40,7 @@ const DatePickerInput = ({
 
   const onChangeDate = (date: Date) => {
     setSelectedDate(date);
-    setValue(name, format(date, "yyyy-MM-dd"));
+    setValue(name, format(date, "yyyy-MM-dd"), { shouldValidate: true });
     setCalendarOpen(false);
   };
 
@@ -80,8 +80,10 @@ const DatePickerInput = ({
           {...register(name)}
           placeholder={placeholder}
           autoComplete="off"
-          className="bg-[var(--primary-light-gray)] w-full px-5 pl-10 py-3 border rounded-xl focus:outline--gray-500 border-none focus:ring-0
-           disabled:cursor-not-allowed disabled:bg-gray-300"
+          className={`bg-[var(--primary-light-gray)] w-full px-5 pl-10 py-3 border rounded-xl focus:outline--gray-500 border-none focus:ring-0
+           disabled:cursor-not-allowed disabled:bg-gray-300 ${
+             error ? "border-error focus:outline-[var(--border-error)]" : ""
+           }`}
           value={
             selectedDate ? format(selectedDate, "dd/MM/yyyy") : initialDate
           }
