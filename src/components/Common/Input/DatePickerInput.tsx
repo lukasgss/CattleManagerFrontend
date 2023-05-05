@@ -17,7 +17,8 @@ type DatePickerProps = {
   register: UseFormRegister<any>;
   placeholder?: string;
   doesNotKnowDateOption?: boolean;
-  doesNotKnowDateOfBirth?: boolean;
+  doesNotKnowDateValue?: boolean;
+  doesNotKnowDateValueInputName?: string;
   error?: FieldError;
 };
 
@@ -28,7 +29,8 @@ const DatePickerInput = ({
   setValue,
   placeholder,
   doesNotKnowDateOption,
-  doesNotKnowDateOfBirth,
+  doesNotKnowDateValue,
+  doesNotKnowDateValueInputName,
   error,
 }: DatePickerProps) => {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>();
@@ -56,17 +58,14 @@ const DatePickerInput = ({
           {labelText}
         </label>
         <div className="flex flex-col items-end justify-end text-right w-fit">
-          <label
-            className="text-sm flex gap-2"
-            htmlFor="doesNotKnowDateOfBirth"
-          >
+          <label className="text-sm flex gap-2" htmlFor="doesNotKnowDateValue">
             {doesNotKnowDateOption ? (
               <>
                 <span className="whitespace-nowrap">Não sei</span>
                 <input
                   type="checkbox"
                   autoComplete="off"
-                  {...register("doesNotKnowDateOfBirth")}
+                  {...register(doesNotKnowDateValueInputName as string)}
                   onClick={clearDateValue}
                 />
               </>
@@ -88,9 +87,9 @@ const DatePickerInput = ({
             selectedDate ? format(selectedDate, "dd/MM/yyyy") : initialDate
           }
           onClick={() =>
-            doesNotKnowDateOfBirth ? undefined : setCalendarOpen(true)
+            doesNotKnowDateValue ? undefined : setCalendarOpen(true)
           }
-          disabled={doesNotKnowDateOfBirth}
+          disabled={doesNotKnowDateValue}
         />
         <AiOutlineCalendar className="absolute h-5 w-5 top-3.5 left-2.5" />
       </div>

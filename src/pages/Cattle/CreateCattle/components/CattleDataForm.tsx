@@ -112,7 +112,8 @@ const CattleDataForm = ({
           placeholder="19/12/2002"
           labelText="Data de nascimento"
           setValue={setValue}
-          doesNotKnowDateOfBirth={doesNotKnowDateOfBirth}
+          doesNotKnowDateValue={doesNotKnowDateOfBirth}
+          doesNotKnowDateValueInputName="doesNotKnowDateOfBirth"
           doesNotKnowDateOption
         />
       </div>
