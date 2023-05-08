@@ -1,8 +1,26 @@
+import { AxiosResponse } from "axios";
 import { CreateMilkProductionForm } from "../../pages/MilkProductions/CreateMilkProduction";
 import { API } from "../Api";
 
-export const CreateNewMilkProduction = (
-  milkProductionData: CreateMilkProductionForm
-) => {
+export type MilkProduction = {
+  id: string;
+  cattleName: string;
+  milkInLiters: number;
+  periodOfDay: string;
+  date: string;
+  cattleId: string;
+};
+
+type PaginatedMilkProduction = {
+  milkProductions: MilkProduction[];
+  currentPage: number;
+  pages: number;
+};
+
+export const CreateNewMilkProduction = (milkProductionData: CreateMilkProductionForm) => {
   return API.post("/milk-productions", milkProductionData);
+};
+
+export const GetAllMilkProductions = (page: number): Promise<AxiosResponse<PaginatedMilkProduction>> => {
+  return API.get(`/milk-productions?page=${page}`);
 };

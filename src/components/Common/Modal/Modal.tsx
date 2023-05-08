@@ -19,6 +19,7 @@ function Modal({ isOpen, setIsOpen, modalTitle, children }: ModalProps) {
       <DetectClickOutside
         elementRef={dialogElement}
         onClickOutside={() => setIsOpen(false)}
+        hideOnEscape={() => setIsOpen(false)}
       >
         <div className="relative z-[120]">
           <div className="fixed inset-0 overflow-y-auto">
@@ -26,11 +27,7 @@ function Modal({ isOpen, setIsOpen, modalTitle, children }: ModalProps) {
               className="w-[85%] max-w-xl absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] py-5 px-7 bg-white rounded shadow"
               ref={dialogElement}
             >
-              {modalTitle ? (
-                <h3 className="text-xl font-medium leading-6 text-gray-900">
-                  {modalTitle}
-                </h3>
-              ) : null}
+              {modalTitle ? <h3 className="text-xl font-medium leading-6 text-gray-900">{modalTitle}</h3> : null}
               <div className="mt-7">{children}</div>
             </div>
           </div>
