@@ -83,12 +83,8 @@ const DatePickerInput = ({
            disabled:cursor-not-allowed disabled:bg-gray-300 ${
              error ? "border-error focus:outline-[var(--border-error)]" : ""
            }`}
-          value={
-            selectedDate ? format(selectedDate, "dd/MM/yyyy") : initialDate
-          }
-          onClick={() =>
-            doesNotKnowDateValue ? undefined : setCalendarOpen(true)
-          }
+          value={selectedDate ? format(selectedDate, "dd/MM/yyyy") : initialDate}
+          onClick={() => (doesNotKnowDateValue ? undefined : setCalendarOpen(true))}
           disabled={doesNotKnowDateValue}
         />
         <AiOutlineCalendar className="absolute h-5 w-5 top-3.5 left-2.5" />

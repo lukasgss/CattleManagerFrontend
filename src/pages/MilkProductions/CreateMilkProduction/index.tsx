@@ -20,9 +20,7 @@ type CreateMilkProductionProps = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setSuccessNotificationIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setErrorNotificationIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setErrorNotificationMessage: React.Dispatch<
-    React.SetStateAction<string | null>
-  >;
+  setErrorNotificationMessage: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
 export type CreateMilkProductionForm = {
@@ -43,9 +41,7 @@ const CreateMilkProduction = ({
   const [cattleSearchTerm, setCattleSearchTerm] = useState("");
   const [selectedCattle, setSelectedCattle] = useState<DataArr | null>(null);
 
-  const [selectedDayOption, setSelectedDayOption] = useState<DataArr | null>(
-    null
-  );
+  const [selectedDayOption, setSelectedDayOption] = useState<DataArr | null>(null);
 
   const dayOptionsArr = [
     { text: "Manhã", value: "m" },
@@ -55,9 +51,7 @@ const CreateMilkProduction = ({
   ];
 
   const schema = z.object({
-    milkInLiters: z
-      .string({ required_error: "Obrigatório" })
-      .transform((val) => parseFloat(val)),
+    milkInLiters: z.string({ required_error: "Obrigatório" }).transform((val) => parseFloat(val)),
     cattleId: z.string().min(1, "Obrigatório"),
     date: z.string().min(1, "Obrigatório"),
     periodOfDay: z.string().min(1, "Obrigatório"),
@@ -94,9 +88,7 @@ const CreateMilkProduction = ({
     onError: (error: AxiosError<ServerError>) => {
       setErrorNotificationIsOpen(true);
       if (error.code === "ERR_NETWORK") {
-        setErrorNotificationMessage(
-          "Não foi possível obter conexão de internet, tente novamente mais tarde."
-        );
+        setErrorNotificationMessage("Não foi possível obter conexão de internet, tente novamente mais tarde.");
       } else {
         setErrorNotificationMessage(error.response?.data.message as string);
       }
@@ -113,11 +105,7 @@ const CreateMilkProduction = ({
   });
 
   return (
-    <Modal
-      isOpen={open}
-      setIsOpen={setOpen}
-      modalTitle="Cadastro de produção de leite"
-    >
+    <Modal isOpen={open} setIsOpen={setOpen} modalTitle="Cadastro de produção de leite">
       <form onSubmit={onSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-y-3 gap-x-5">
           <AutoComplete
@@ -165,11 +153,7 @@ const CreateMilkProduction = ({
         </div>
         <div className="mt-8 flex justify-end gap-5">
           <div className="w-full flex flex-col-reverse lg:w-1/2 md:flex-row gap-5">
-            <Button
-              ariaLabel="cancelar"
-              transparent
-              action={() => setOpen(false)}
-            >
+            <Button ariaLabel="cancelar" transparent action={() => setOpen(false)}>
               Cancelar
             </Button>
             <Button ariaLabel="cadastrar" submit>

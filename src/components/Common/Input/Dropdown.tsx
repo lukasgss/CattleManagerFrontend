@@ -14,6 +14,7 @@ type DropdownProps = {
   selectedItem: DataArr | null;
   setSelectedItem: React.Dispatch<React.SetStateAction<DataArr | null>>;
   setValue: UseFormSetValue<any>;
+  className?: string;
   error?: FieldError;
 };
 
@@ -57,9 +58,7 @@ const Dropdown = ({
              }`}
           />
           <BsChevronDown
-            className={`absolute top-3 right-3 w-5 h-5 transition duration-300 ${
-              expanded ? "rotate-180" : ""
-            }`}
+            className={`absolute top-3 right-3 w-5 h-5 transition duration-300 ${expanded ? "rotate-180" : ""}`}
           />
         </div>
       </button>
@@ -84,9 +83,7 @@ const Dropdown = ({
                         type="button"
                         aria-label="selecionar"
                         className={`px-3 py-1 w-full flex items-center text-left hover:bg-[var(--secondary-light-gray)] hover:text-[var(--primaryblack)] ${
-                          selectedItem?.text === data.text
-                            ? "bg-[var(--secondary-light-gray)]"
-                            : ""
+                          selectedItem?.text === data.text ? "bg-[var(--secondary-light-gray)]" : ""
                         }`}
                         onClick={() => selectItem(data)}
                       >
@@ -95,13 +92,7 @@ const Dropdown = ({
                             <BsCheck2 className="w-5 h-5 hover:cursor-pointer mr-2" />
                           </span>
                         ) : null}
-                        <span
-                          className={`${
-                            selectedItem?.text === data.text
-                              ? "poppins-semi-bold"
-                              : "pl-7"
-                          }`}
-                        >
+                        <span className={`${selectedItem?.text === data.text ? "poppins-semi-bold" : "pl-7"}`}>
                           {data.text}
                         </span>
                       </button>
@@ -109,10 +100,7 @@ const Dropdown = ({
                   ))
                 ) : (
                   <div className="px-3 py-1">
-                    <span>
-                      Não foi possível obter as opções de escolha, verifique sua
-                      internet e tente novamente.
-                    </span>
+                    <span>Não foi possível obter as opções de escolha, verifique sua internet e tente novamente.</span>
                   </div>
                 )}
               </ul>

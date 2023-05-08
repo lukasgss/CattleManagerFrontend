@@ -8,7 +8,7 @@ type ButtonProps = {
   ariaLabel: string;
   className?: string;
   action?: (...params: (number | object | string)[]) => void;
-  color?: "marineBlue";
+  color?: "marineBlue" | "white";
   transparent?: boolean;
 };
 
@@ -34,10 +34,8 @@ const Button = ({
           transparent
             ? "bg-transparent border-2 border-transparent text-[#667085] hover:bg-var(--secondary-light-gray)]"
             : "text-white bg-[var(--primary-blue)]"
-        } ${
-          color === "marineBlue"
-            ? "!bg-[var(--marine-blue)] !border-[var(--marine-blue)]"
-            : ""
+        } ${color === "marineBlue" ? "!bg-[var(--marine-blue)] !border-[var(--marine-blue)]" : ""} ${
+          color === "white" ? "!bg-white border-[#D0D5DD] hover:brightness-100" : ""
         }
         `}
         disabled={loading}

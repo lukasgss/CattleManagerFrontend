@@ -3,42 +3,49 @@ import CreateMilkProduction from "./CreateMilkProduction";
 import MainPage from "../../components/MainPage";
 import ErrorNotification from "../../components/Common/ToastNotifications/ErrorNotification";
 import SuccessNotification from "../../components/Common/ToastNotifications/SuccessNotification";
+import Button from "../../components/Common/Button";
+import MilkProductionTable from "./components/MilkProductionTable";
 
 const MilkProductions = () => {
-  const [open, setOpen] = useState(true);
+  const [isOpenCreateMilkProductionModal, setIsOpenCreateMilkProductionModal] = useState(false);
 
-  const [successNotificationIsOpen, setSuccessNotificationIsOpen] =
-    useState(false);
-  const [errorNotificationIsOpen, setErrorNotificationIsOpen] = useState(true);
-  const [errorNotificationMessage, setErrorNotificationMessage] = useState<
-    string | null
-  >(null);
+  const [successNotificationIsOpen, setSuccessNotificationIsOpen] = useState(false);
+  const [errorNotificationIsOpen, setErrorNotificationIsOpen] = useState(false);
+  const [errorNotificationMessage, setErrorNotificationMessage] = useState<string | null>(null);
 
   return (
     <MainPage>
-      <div className="relative bg-white shadow rounded-md mx-auto">
-        <button type="button" onClick={() => setOpen((prev) => !prev)}>
-          open
-        </button>
+      <div className="bg-white px-8 py-5">
+        <h2 className="text-3xl">Produções de leite</h2>
+        <div className="w-full flex justify-end relative">
+          <div>
+            <Button
+              ariaLabel="cadastrar producao de leite"
+              action={() => setIsOpenCreateMilkProductionModal((prev) => !prev)}
+            >
+              Cadastrar produção de leite
+            </Button>
+          </div>
+        </div>
+        <MilkProductionTable />
         <CreateMilkProduction
-          open={open}
-          setOpen={setOpen}
+          open={isOpenCreateMilkProductionModal}
+          setOpen={setIsOpenCreateMilkProductionModal}
           setSuccessNotificationIsOpen={setSuccessNotificationIsOpen}
           setErrorNotificationIsOpen={setErrorNotificationIsOpen}
           setErrorNotificationMessage={setErrorNotificationMessage}
         />
-        {successNotificationIsOpen ? (
-          <SuccessNotification
-            text="Gado cadastrado com sucesso."
-            setIsOpen={setSuccessNotificationIsOpen}
-          />
-        ) : null}
-        {errorNotificationIsOpen ? (
-          <ErrorNotification
-            text={errorNotificationMessage}
-            setIsOpen={setErrorNotificationIsOpen}
-          />
-        ) : null}
+
+        <SuccessNotification
+          text="Gado cadastrado com sucesso."
+          isOpen={successNotificationIsOpen}
+          setIsOpen={setSuccessNotificationIsOpen}
+        />
+        <ErrorNotification
+          text={errorNotificationMessage}
+          isOpen={errorNotificationIsOpen}
+          setIsOpen={setErrorNotificationIsOpen}
+        />
       </div>
     </MainPage>
   );
