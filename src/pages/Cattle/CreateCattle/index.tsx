@@ -16,12 +16,9 @@ import SuccessNotification from "../../../components/Common/ToastNotifications/S
 import ErrorNotification from "../../../components/Common/ToastNotifications/ErrorNotification";
 
 const CreateCattle = () => {
-  const [successNotificationIsOpen, setSuccessNotificationIsOpen] =
-    useState(false);
+  const [successNotificationIsOpen, setSuccessNotificationIsOpen] = useState(false);
   const [errorNotificationIsOpen, setErrorNotificationIsOpen] = useState(false);
-  const [errorNotificationMessage, setErrorNotificationMessage] = useState<
-    string | null
-  >(null);
+  const [errorNotificationMessage, setErrorNotificationMessage] = useState<string | null>(null);
 
   const {
     register,
@@ -54,9 +51,7 @@ const CreateCattle = () => {
     onError: (error: AxiosError<ServerError>) => {
       setErrorNotificationIsOpen(true);
       if (error.code === "ERR_NETWORK") {
-        setErrorNotificationMessage(
-          "Não foi possível obter conexão de internet, tente novamente mais tarde."
-        );
+        setErrorNotificationMessage("Não foi possível obter conexão de internet, tente novamente mais tarde.");
       } else {
         setErrorNotificationMessage(error.response?.data.message as string);
       }
@@ -73,10 +68,7 @@ const CreateCattle = () => {
       ? parseInt(formData.dateOfBirth.toString().split("-")[0], 10)
       : formData.yearOfBirth;
 
-    const ownersIds = [
-      ...formData.ownersIds,
-      localStorage.getItem("userId"),
-    ] as string[];
+    const ownersIds = [...formData.ownersIds, localStorage.getItem("userId")] as string[];
 
     const cattleData: CreateCattleFormDataRequest = {
       name: formData.name,
@@ -103,18 +95,16 @@ const CreateCattle = () => {
   return (
     <MainPage>
       <div className="relative bg-white shadow rounded-md mx-auto">
-        {successNotificationIsOpen ? (
-          <SuccessNotification
-            text="Gado cadastrado com sucesso."
-            setIsOpen={setSuccessNotificationIsOpen}
-          />
-        ) : null}
-        {errorNotificationIsOpen ? (
-          <ErrorNotification
-            text={errorNotificationMessage}
-            setIsOpen={setErrorNotificationIsOpen}
-          />
-        ) : null}
+        <SuccessNotification
+          text="Gado cadastrado com sucesso."
+          isOpen={successNotificationIsOpen}
+          setIsOpen={setSuccessNotificationIsOpen}
+        />
+        <ErrorNotification
+          text={errorNotificationMessage}
+          isOpen={errorNotificationIsOpen}
+          setIsOpen={setErrorNotificationIsOpen}
+        />
         <h2 className="text-3xl p-5 pb-0">Cadastrar gado</h2>
         <form onSubmit={onSubmit}>
           <div className="py-8 px-5 grid grid-cols-1 lg:grid-cols-2 gap-1 lg:gap-10 w-full">
@@ -152,12 +142,7 @@ const CreateCattle = () => {
                 clearErrors={clearErrors}
                 getValues={getValues}
               />
-              <DeadCattleForm
-                register={register}
-                setValue={setValue}
-                watch={watch}
-                errors={errors}
-              />
+              <DeadCattleForm register={register} setValue={setValue} watch={watch} errors={errors} />
             </div>
           </div>
           <div className="flex justify-end p-4 pt-0 w-full lg:w-fit lg:ml-auto">
