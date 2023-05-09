@@ -21,23 +21,17 @@ export default function MilkProductionTable() {
     refetch();
   }, [page]);
 
-  const tableData = milkProductions?.data.milkProductions.map((milkProduction) => ({
-    cattleName: milkProduction.cattleName,
-    milkInLiters: milkProduction.milkInLiters,
-    date: milkProduction.date,
-    periodOfDay: milkProduction.periodOfDay,
-  }));
-
   return (
     <div>
       <Table
         isLoading={isLoading}
         isError={isError}
-        tableData={tableData}
+        tableData={milkProductions?.data.milkProductions}
         currentPage={page}
         numberOfPages={milkProductions?.data.pages}
         setPage={setPage}
         tableHeaders={["Vaca", "Quantidade em litros", "Data", "Período do dia"]}
+        tableDataKeys={["cattleName", "milkInLiters", "date", "periodOfDay"]}
       />
     </div>
   );

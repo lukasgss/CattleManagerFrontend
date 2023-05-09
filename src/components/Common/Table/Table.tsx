@@ -7,6 +7,7 @@ type TableProps = {
   isLoading: boolean;
   isError: boolean;
   tableData: any[] | undefined;
+  tableDataKeys?: string[];
   currentPage: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
   numberOfPages: number | undefined;
@@ -20,6 +21,7 @@ export default function Table({
   currentPage,
   setPage,
   tableData = [],
+  tableDataKeys,
 }: TableProps) {
   return (
     <>
@@ -37,13 +39,11 @@ export default function Table({
 
         {!isLoading && !isError && tableData.length > 0 ? (
           <tbody>
-            {tableData?.map((data, idx) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <tr key={`${data}-${idx}`} className="border-b-1 even:bg-[#fafbfc]">
-                {Object.values(data).map((val: any, i) => (
-                  // eslint-disable-next-line react/no-array-index-key
-                  <td key={`${data}-${i}`}>{val}</td>
-                ))}
+            {tableData?.map((data) => (
+              <tr key={data.id} className="border-b-1 even:bg-[#fafbfc]">
+                {tableDataKeys
+                  ? tableDataKeys.map((tableColumn) => <td key={tableColumn}>{data[tableColumn]}</td>)
+                  : Object.values(data).map((tableColumn: any) => <td key={tableColumn}>{tableColumn}</td>)}
               </tr>
             ))}
           </tbody>
@@ -53,11 +53,13 @@ export default function Table({
       {!isLoading && !isError && tableData.length === 0 ? (
         <div className="text-center border-2 border-t-0 py-3">Nenhum dado encontrado!</div>
       ) : null}
+
       {!isLoading && !isError && tableData.length !== 0 ? (
         <div className="mt-2">
           <TablePagesButtons amountOfPages={numberOfPages as number} currentPage={currentPage} setPage={setPage} />
         </div>
       ) : null}
+
       {!isLoading && isError ? (
         <div className="text-center border-2 border-t-0 py-3">
           Não foi possível obter os dados da tabela, tente novamente mais tarde.
