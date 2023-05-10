@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { CreateMilkProductionForm } from "../../pages/MilkProductions/CreateMilkProduction";
+import { MilkProductionData } from "../../pages/MilkProductions/CreateMilkProduction";
 import { API } from "../Api";
 
 export type MilkProduction = {
@@ -17,7 +17,7 @@ type PaginatedMilkProduction = {
   pages: number;
 };
 
-export const CreateNewMilkProduction = (milkProductionData: CreateMilkProductionForm) => {
+export const CreateNewMilkProduction = (milkProductionData: MilkProductionData) => {
   return API.post("/milk-productions", milkProductionData);
 };
 

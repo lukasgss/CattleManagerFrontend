@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { BsCheck2, BsChevronDown } from "react-icons/bs";
-import { FieldError, UseFormRegister, UseFormSetValue } from "react-hook-form";
+import { FieldError, FieldErrorsImpl, Merge, UseFormRegister, UseFormSetValue, UseFormWatch } from "react-hook-form";
 import FormErrorMessage from "../../FormErrorMessage";
 import { DataArr } from "../../../types/dataArr";
 import DetectClickOutside from "../../DetectClickOutside";
@@ -11,31 +11,21 @@ type DropdownProps = {
   dataArr: DataArr[];
   labelText: string;
   placeholder?: string;
-  selectedItem: DataArr | null;
-  setSelectedItem: React.Dispatch<React.SetStateAction<DataArr | null>>;
+  watch: UseFormWatch<any>;
   setValue: UseFormSetValue<any>;
   className?: string;
-  error?: FieldError;
+  error?: Merge<FieldError, FieldErrorsImpl<DataArr>>;
 };
 
-const Dropdown = ({
-  register,
-  name,
-  dataArr,
-  labelText,
-  placeholder,
-  selectedItem,
-  setSelectedItem,
-  setValue,
-  error,
-}: DropdownProps) => {
+const Dropdown = ({ register, name, dataArr, labelText, placeholder, watch, setValue, error }: DropdownProps) => {
   const [expanded, setExpanded] = useState(false);
 
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
+  const fieldValue: DataArr | null = watch(name);
+
   const selectItem = (item: DataArr) => {
-    setValue(name as any, item.value, { shouldValidate: true });
-    setSelectedItem(item);
+    setValue(name, { text: item.text, value: item.value }, { shouldValidate: true });
     setExpanded(false);
   };
 
@@ -48,7 +38,7 @@ const Dropdown = ({
         <div className="w-full relative">
           <input
             type="text"
-            value={selectedItem?.text ?? ""}
+            value={fieldValue?.text ?? ""}
             autoComplete="off"
             placeholder={placeholder}
             {...register(name)}
@@ -83,16 +73,16 @@ const Dropdown = ({
                         type="button"
                         aria-label="selecionar"
                         className={`px-3 py-1 w-full flex items-center text-left hover:bg-[var(--secondary-light-gray)] hover:text-[var(--primaryblack)] ${
-                          selectedItem?.text === data.text ? "bg-[var(--secondary-light-gray)]" : ""
+                          fieldValue?.text === data.text ? "bg-[var(--secondary-light-gray)]" : ""
                         }`}
                         onClick={() => selectItem(data)}
                       >
-                        {selectedItem?.value === data.value ? (
+                        {fieldValue?.value === data.value ? (
                           <span>
                             <BsCheck2 className="w-5 h-5 hover:cursor-pointer mr-2" />
                           </span>
                         ) : null}
-                        <span className={`${selectedItem?.text === data.text ? "poppins-semi-bold" : "pl-7"}`}>
+                        <span className={`${fieldValue?.text === data.text ? "poppins-semi-bold" : "pl-7"}`}>
                           {data.text}
                         </span>
                       </button>

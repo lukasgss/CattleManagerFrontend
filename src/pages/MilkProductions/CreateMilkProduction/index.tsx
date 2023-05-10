@@ -23,9 +23,16 @@ type CreateMilkProductionProps = {
   setErrorNotificationMessage: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
-export type CreateMilkProductionForm = {
+type CreateMilkProductionForm = {
   milkInLiters: number;
-  periodOfDay: "m" | "a" | "n" | "d";
+  periodOfDay: DataArr | null;
+  date: Date;
+  cattleId: string;
+};
+
+export type MilkProductionData = {
+  milkInLiters: number;
+  periodOfDay: string;
   date: Date;
   cattleId: string;
 };
@@ -41,8 +48,6 @@ const CreateMilkProduction = ({
   const [cattleSearchTerm, setCattleSearchTerm] = useState("");
   const [selectedCattle, setSelectedCattle] = useState<DataArr | null>(null);
 
-  const [selectedDayOption, setSelectedDayOption] = useState<DataArr | null>(null);
-
   const dayOptionsArr = [
     { text: "Manhã", value: "m" },
     { text: "Tarde", value: "a" },
@@ -54,7 +59,13 @@ const CreateMilkProduction = ({
     milkInLiters: z.string({ required_error: "Obrigatório" }).transform((val) => parseFloat(val)),
     cattleId: z.string().min(1, "Obrigatório"),
     date: z.string().min(1, "Obrigatório"),
-    periodOfDay: z.string().min(1, "Obrigatório"),
+    periodOfDay: z.object(
+      {
+        text: z.string(),
+        value: z.string(),
+      },
+      { invalid_type_error: "Obrigatório" }
+    ),
   });
 
   const {
@@ -63,9 +74,13 @@ const CreateMilkProduction = ({
     control,
     setValue,
     reset,
+    watch,
     formState: { errors },
   } = useForm<CreateMilkProductionForm>({
     resolver: zodResolver(schema),
+    defaultValues: {
+      periodOfDay: null,
+    },
   });
 
   const onChangeSearchCattle = async (searchTerm: string) => {
@@ -76,9 +91,20 @@ const CreateMilkProduction = ({
     setCattleArr(data);
   };
 
+  const formatRequestData = (data: CreateMilkProductionForm): MilkProductionData => {
+    return {
+      milkInLiters: data.milkInLiters,
+      periodOfDay: data.periodOfDay?.value as string,
+      date: data.date,
+      cattleId: data.cattleId,
+    };
+  };
+
   const createMilkProduction = useMutation({
     mutationFn: async (milkProductionData: CreateMilkProductionForm) => {
-      await CreateNewMilkProduction(milkProductionData);
+      const formattedData = formatRequestData(milkProductionData);
+
+      await CreateNewMilkProduction(formattedData);
     },
     onSuccess: () => {
       setSuccessNotificationIsOpen(true);
@@ -142,11 +168,10 @@ const CreateMilkProduction = ({
               labelText="Período do dia"
               name="periodOfDay"
               register={register}
+              watch={watch}
               setValue={setValue}
               error={errors.periodOfDay}
               dataArr={dayOptionsArr}
-              selectedItem={selectedDayOption}
-              setSelectedItem={setSelectedDayOption}
               placeholder="Dia inteiro"
             />
           </div>
