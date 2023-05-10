@@ -15,7 +15,7 @@ const MilkProductions = () => {
 
   return (
     <MainPage>
-      <div className="bg-white px-8 py-5">
+      <div className="bg-white px-8 py-5 relative">
         <h2 className="text-3xl">Produções de leite</h2>
         <div className="w-full flex justify-end relative">
           <div>
