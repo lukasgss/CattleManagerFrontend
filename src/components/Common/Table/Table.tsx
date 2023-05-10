@@ -1,5 +1,5 @@
 import React from "react";
-import TablePagesButtons from "../../../pages/MilkProductions/components/TablePagesButtons";
+import PaginationButtons from "../../../pages/MilkProductions/components/PaginationButtons";
 import TableLoadingSkeleton from "../Loading/TableLoadingSkeleton";
 
 type TableProps = {
@@ -56,7 +56,7 @@ export default function Table({
 
       {!isLoading && !isError && tableData.length !== 0 ? (
         <div className="mt-2">
-          <TablePagesButtons amountOfPages={numberOfPages as number} currentPage={currentPage} setPage={setPage} />
+          <PaginationButtons amountOfPages={numberOfPages as number} currentPage={currentPage} setPage={setPage} />
         </div>
       ) : null}
 

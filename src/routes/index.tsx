@@ -10,6 +10,7 @@ import CreateCattle from "../pages/Cattle/CreateCattle";
 import NotFound from "../pages/NotFound";
 import Home from "../pages/Home";
 import MilkProductions from "../pages/MilkProductions";
+import Cattle from "../pages/Cattle";
 
 const AppRoutes = () => {
   return (
@@ -23,6 +24,7 @@ const AppRoutes = () => {
               <Route path="/home" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/cadastro" element={<Register />} />
+              <Route path="/gado" element={<Cattle />} />
               <Route path="/cadastro-gado" element={<CreateCattle />} />
               <Route path="/producoes-leite" element={<MilkProductions />} />
               <Route path="/404" element={<NotFound />} />
