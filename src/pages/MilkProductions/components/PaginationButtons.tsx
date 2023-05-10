@@ -33,7 +33,7 @@ function NextButton({ currentPage, setPage }: PrevAndNextButtonProps) {
   );
 }
 
-export default function TablePagesButtons({ amountOfPages, currentPage, setPage }: TablePagesButtons) {
+export default function PaginationButtons({ amountOfPages, currentPage, setPage }: TablePagesButtons) {
   const passToPreviousPage = () => {
     if (currentPage === 1) return;
     setPage(currentPage - 1);
