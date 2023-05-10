@@ -26,7 +26,7 @@ type CreateMilkProductionProps = {
 export type CreateMilkProductionForm = {
   milkInLiters: number;
   periodOfDay: "m" | "a" | "n" | "d";
-  dateMilkProduction: Date;
+  date: Date;
   cattleId: string;
 };
 
@@ -134,7 +134,7 @@ const CreateMilkProduction = ({
             placeholder="10/05/2018"
             register={register}
             labelText="Data"
-            error={errors.dateMilkProduction}
+            error={errors.date}
             setValue={setValue}
           />
           <div>
