@@ -14,10 +14,7 @@ import {
 import Button from "../../../../components/Common/Button";
 import DropdownWithSearch from "../../../../components/Common/Input/DropdownWithSearch";
 import BreedInput from "../../../../components/Common/Input/BreedInput";
-import {
-  simplifyFraction,
-  transformFractionToDecimal,
-} from "../../../../extensions/stringExtensions";
+import { simplifyFraction, transformFractionToDecimal } from "../../../../extensions/stringExtensions";
 import { GetAllBreeds } from "../../../../services/Breeds";
 import { DataArr } from "../../../../types/dataArr";
 import { CreateCattleFormData } from "../types";
@@ -52,7 +49,7 @@ const BreedForm = ({
   const [breedsArr, setBreedsArr] = useState<DataArr[]>([]);
   const [addedBreeds, setAddedBreeds] = useState<Breed[]>([]);
 
-  const [selectedItem, setSelectedItem] = useState<DataArr | null>(null);
+  const fieldValue: DataArr | null = watch("breedName");
 
   const getAllBreeds = async () => {
     const { data } = await GetAllBreeds();
@@ -150,19 +147,14 @@ const BreedForm = ({
       },
     ]);
     setValue("breedQuantity", "");
-    setValue("breedName", "");
-    setSelectedItem(null);
+    setValue("breedName", null);
     clearErrors("breedQuantity");
     clearErrors("breedName");
   };
 
   const removeAddedBreed = (breed: Breed) => {
-    const updatedBreeds = addedBreeds.filter((addedBreed) =>
-      addedBreed.name !== breed.name ? addedBreed : null
-    );
-    const formUpdatedBreeds = getValues("breeds").filter((b) =>
-      b.name !== breed.name ? b : null
-    );
+    const updatedBreeds = addedBreeds.filter((addedBreed) => (addedBreed.name !== breed.name ? addedBreed : null));
+    const formUpdatedBreeds = getValues("breeds").filter((b) => (b.name !== breed.name ? b : null));
     setAddedBreeds(updatedBreeds);
     setValue("breeds", formUpdatedBreeds);
   };
@@ -178,24 +170,18 @@ const BreedForm = ({
             placeholder="Holandês"
             labelText="Raça"
             error={errors?.breedName}
-            selectedItem={selectedItem}
-            setSelectedItem={setSelectedItem}
+            watch={watch}
             dataArr={breedsArr}
           />
-          <BreedInput
-            name="breedQuantity"
-            control={control}
-            labelText="Quantidade"
-            error={errors?.breedQuantity}
-          />
+          <BreedInput name="breedQuantity" control={control} labelText="Quantidade" error={errors?.breedQuantity} />
         </div>
         <div className="w-full xl:w-fit">
           <Button
             ariaLabel="adicionar raça"
             action={() =>
               addBreed({
-                id: selectedItem?.value as string,
-                name: getValues("breedName"),
+                id: fieldValue?.value as string,
+                name: getValues("breedName")?.text as string,
                 quantity: getValues("breedQuantity"),
               })
             }

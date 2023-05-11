@@ -12,7 +12,7 @@ export type CreateCattleFormData = {
   motherId: DataArr | null;
   sexId: DataArr | null;
   breeds: BreedFormData[];
-  breedName: string;
+  breedName: DataArr | null;
   doesNotKnowDateOfBirth: boolean;
   breedQuantity: string;
   wasBought: "Não" | "Sim";
