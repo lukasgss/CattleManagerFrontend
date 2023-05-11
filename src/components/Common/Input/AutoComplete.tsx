@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { FieldError, UseFormRegister, UseFormSetValue } from "react-hook-form";
+import { FieldError, FieldErrorsImpl, Merge, UseFormRegister, UseFormSetValue, UseFormWatch } from "react-hook-form";
 import { BsCheck2, BsChevronDown } from "react-icons/bs";
 import FormErrorMessage from "../../FormErrorMessage";
 import { DataArr } from "../../../types/dataArr";
@@ -12,8 +12,9 @@ type AutoCompleteProps = {
   placeholder?: string;
   dataArr: DataArr[];
   onChangeSearch: (searchText: string) => void;
+  watch: UseFormWatch<any>;
   setValue: UseFormSetValue<any>;
-  error?: FieldError;
+  error?: Merge<FieldError, FieldErrorsImpl<DataArr>>;
 };
 
 const AutoComplete = ({
@@ -24,11 +25,11 @@ const AutoComplete = ({
   error,
   onChangeSearch,
   setValue,
+  watch,
   dataArr,
 }: AutoCompleteProps) => {
   const [expanded, setExpanded] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedItem, setSelectedItem] = useState<DataArr | null>(null);
 
   const inputRef = useRef<any>(null);
   const dropdownRef = useRef<any>(null);
@@ -51,10 +52,11 @@ const AutoComplete = ({
     };
   }, [searchTerm]);
 
+  const fieldValue = watch(name);
+
   const selectItem = (item: DataArr) => {
-    setSelectedItem(item);
-    setSearchTerm(item.text);
-    setValue(name, item.value, { shouldValidate: true });
+    setSearchTerm("");
+    setValue(name, item, { shouldValidate: true });
 
     setExpanded(false);
   };
@@ -86,7 +88,7 @@ const AutoComplete = ({
               setExpanded(true);
               setSearchTerm(e.target.value);
             }}
-            value={expanded ? searchTerm : selectedItem?.text ?? searchTerm}
+            value={expanded ? searchTerm : fieldValue?.text ?? searchTerm}
             placeholder={placeholder}
             onFocus={() => setExpanded(true)}
             autoComplete="off"
@@ -103,9 +105,7 @@ const AutoComplete = ({
           onClick={() => setExpanded((prevValue) => !prevValue)}
         >
           <BsChevronDown
-            className={`absolute top-3 right-3 w-5 h-5 transition duration-300 ${
-              expanded ? "rotate-180" : ""
-            }`}
+            className={`absolute top-3 right-3 w-5 h-5 transition duration-300 ${expanded ? "rotate-180" : ""}`}
           />
         </button>
       </div>
@@ -123,22 +123,14 @@ const AutoComplete = ({
                     <button
                       type="button"
                       className={`px-3 py-1 w-full flex items-center text-left hover:bg-[var(--secondary-light-gray)] z-5 ${
-                        selectedItem?.value === el.value
-                          ? "bg-[var(--secondary-light-gray)]"
-                          : ""
+                        fieldValue?.value === el.value ? "bg-[var(--secondary-light-gray)]" : ""
                       }`}
                       onClick={() => selectItem(el)}
                     >
-                      {selectedItem?.value === el.value ? (
+                      {fieldValue?.value === el.value ? (
                         <BsCheck2 className="w-5 h-5 mr-2 hover:cursor-pointer" />
                       ) : null}
-                      <span
-                        className={`${
-                          selectedItem?.value === el.value
-                            ? "poppins-semi-bold"
-                            : "pl-7"
-                        }`}
-                      >
+                      <span className={`${fieldValue?.value === el.value ? "poppins-semi-bold" : "pl-7"}`}>
                         {el.text}
                       </span>
                     </button>

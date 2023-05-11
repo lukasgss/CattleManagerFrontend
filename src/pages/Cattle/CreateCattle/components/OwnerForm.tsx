@@ -6,13 +6,14 @@ import {
   UseFormRegister,
   UseFormSetError,
   UseFormSetValue,
+  UseFormWatch,
 } from "react-hook-form";
 import { IoIosClose } from "react-icons/io";
 import { CreateCattleFormData } from "../types";
 import { DataArr } from "../../../../types/dataArr";
 import { GetUsersByName } from "../../../../services/User";
 import Button from "../../../../components/Common/Button";
-import MultiAddAutoComplete from "../../../../components/Common/Input/MultiAddAutoComplete";
+import AutoComplete from "../../../../components/Common/Input/AutoComplete";
 
 type OwnerFormProps = {
   register: UseFormRegister<CreateCattleFormData>;
@@ -21,20 +22,14 @@ type OwnerFormProps = {
   errors: FieldErrors<CreateCattleFormData>;
   getValues: UseFormGetValues<any>;
   clearErrors: UseFormClearErrors<CreateCattleFormData>;
+  watch: UseFormWatch<CreateCattleFormData>;
 };
 
-const OwnerForm = ({
-  register,
-  setValue,
-  setError,
-  getValues,
-  errors,
-  clearErrors,
-}: OwnerFormProps) => {
+const OwnerForm = ({ register, setValue, setError, getValues, watch, errors, clearErrors }: OwnerFormProps) => {
   const [usersArr, setUsersArr] = useState<DataArr[]>([]);
   const [addedOwners, setAddedOwners] = useState<DataArr[]>([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedItem, setSelectedItem] = useState<DataArr | null>(null);
+
+  const ownerValue = watch("ownerName");
 
   const onChangeSearchOwners = async (name: string) => {
     if (name === "") {
@@ -45,14 +40,14 @@ const OwnerForm = ({
   };
 
   const userFieldsAreValid = () => {
-    if (!selectedItem?.text) {
+    if (!ownerValue?.text) {
       setError("ownerName", {
         type: "custom",
         message: "Obrigatório.",
       });
       return false;
     }
-    if (addedOwners.some((owner) => owner.value === selectedItem.value)) {
+    if (addedOwners.some((owner) => owner.value === ownerValue.value)) {
       setError("ownerName", {
         type: "custom",
         message: "Esse usuário já foi adicionado.",
@@ -63,9 +58,7 @@ const OwnerForm = ({
   };
 
   const clearValues = () => {
-    setValue("ownerName", "");
-    setSelectedItem(null);
-    setSearchTerm("");
+    setValue("ownerName", null);
     clearErrors("ownerName");
   };
 
@@ -74,29 +67,21 @@ const OwnerForm = ({
     if (!userIsValid) {
       return;
     }
-    setAddedOwners([
-      ...addedOwners,
-      {
-        text: selectedItem?.text as string,
-        value: selectedItem?.value as string,
-      },
-    ]);
+    setAddedOwners([...addedOwners, ownerValue as DataArr]);
     const ownersIds = getValues("ownersIds");
 
     if (ownersIds.length === 0) {
-      setValue("ownersIds", [selectedItem?.value as string]);
+      setValue("ownersIds", [ownerValue?.value as string]);
     } else {
-      setValue("ownersIds", [...ownersIds, selectedItem?.value as string]);
+      setValue("ownersIds", [...ownersIds, ownerValue?.value as string]);
     }
 
     clearValues();
   };
 
   const removeAddedOwner = (ownerToRemove: DataArr) => {
-    const updatedOwners = addedOwners.filter((owner) =>
-      owner.value !== ownerToRemove.value ? owner : null
-    );
-    const formUpdatedOwners = getValues("ownersIds").filter((ownerId) =>
+    const updatedOwners = addedOwners.filter((owner) => (owner.value !== ownerToRemove.value ? owner : null));
+    const formUpdatedOwners = getValues("ownersIds").filter((ownerId: string) =>
       ownerToRemove.value !== ownerId ? ownerId : null
     );
 
@@ -108,7 +93,7 @@ const OwnerForm = ({
     <div className="flex flex-col gap-1.5">
       <div className="flex flex-col lg:flex-row items-end gap-5">
         <div className="flex flex-col w-full gap-3 xl:flex-row lg:items-end xl:gap-5">
-          <MultiAddAutoComplete
+          <AutoComplete
             name="ownerName"
             register={register}
             setValue={setValue}
@@ -117,17 +102,10 @@ const OwnerForm = ({
             error={errors?.ownerName}
             dataArr={usersArr}
             onChangeSearch={onChangeSearchOwners}
-            selectedItem={selectedItem}
-            setSelectedItem={setSelectedItem}
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
+            watch={watch}
           />
           <div className="w-full xl:w-fit">
-            <Button
-              ariaLabel="adicionar dono"
-              action={addOwner}
-              color="marineBlue"
-            >
+            <Button ariaLabel="adicionar dono" action={addOwner} color="marineBlue">
               Adicionar
             </Button>
           </div>
