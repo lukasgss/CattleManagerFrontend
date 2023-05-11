@@ -10,10 +10,10 @@ import Dropdown from "../../../components/Common/Input/Dropdown";
 import { DataArr } from "../../../types/dataArr";
 import { GetFemaleCattleByName } from "../../../services/Cattle";
 import DatePickerInput from "../../../components/Common/Input/DatePickerInput";
-import AutoComplete from "../../../components/Common/Input/MultiAddAutoComplete";
 import Button from "../../../components/Common/Button";
 import { ServerError } from "../../../types/error";
 import { CreateNewMilkProduction } from "../../../services/MilkProductions";
+import AutoComplete from "../../../components/Common/Input/AutoComplete";
 
 type CreateMilkProductionProps = {
   open: boolean;
@@ -27,7 +27,7 @@ type CreateMilkProductionForm = {
   milkInLiters: number;
   periodOfDay: DataArr | null;
   date: Date;
-  cattleId: string;
+  cattleId: DataArr | null;
 };
 
 export type MilkProductionData = {
@@ -45,8 +45,6 @@ const CreateMilkProduction = ({
   setErrorNotificationMessage,
 }: CreateMilkProductionProps) => {
   const [cattleArr, setCattleArr] = useState<DataArr[]>([]);
-  const [cattleSearchTerm, setCattleSearchTerm] = useState("");
-  const [selectedCattle, setSelectedCattle] = useState<DataArr | null>(null);
 
   const dayOptionsArr = [
     { text: "Manhã", value: "m" },
@@ -57,7 +55,13 @@ const CreateMilkProduction = ({
 
   const schema = z.object({
     milkInLiters: z.string({ required_error: "Obrigatório" }).transform((val) => parseFloat(val)),
-    cattleId: z.string().min(1, "Obrigatório"),
+    cattleId: z.object(
+      {
+        text: z.string(),
+        value: z.string(),
+      },
+      { invalid_type_error: "Obrigatório" }
+    ),
     date: z.string().min(1, "Obrigatório"),
     periodOfDay: z.object(
       {
@@ -79,6 +83,7 @@ const CreateMilkProduction = ({
   } = useForm<CreateMilkProductionForm>({
     resolver: zodResolver(schema),
     defaultValues: {
+      cattleId: null,
       periodOfDay: null,
     },
   });
@@ -96,7 +101,7 @@ const CreateMilkProduction = ({
       milkInLiters: data.milkInLiters,
       periodOfDay: data.periodOfDay?.value as string,
       date: data.date,
-      cattleId: data.cattleId,
+      cattleId: data.cattleId?.value as string,
     };
   };
 
@@ -137,10 +142,7 @@ const CreateMilkProduction = ({
           <AutoComplete
             dataArr={cattleArr}
             onChangeSearch={onChangeSearchCattle}
-            searchTerm={cattleSearchTerm}
-            setSearchTerm={setCattleSearchTerm}
-            selectedItem={selectedCattle}
-            setSelectedItem={setSelectedCattle}
+            watch={watch}
             name="cattleId"
             register={register}
             error={errors.cattleId}

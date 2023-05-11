@@ -37,6 +37,8 @@ const CreateCattle = () => {
       ownersIds: [],
       yearOfBirth: null,
       sexId: null,
+      fatherId: null,
+      motherId: null,
       wasBought: "Não",
       isDead: "Não",
     },
@@ -74,8 +76,8 @@ const CreateCattle = () => {
 
     const cattleData: CreateCattleFormDataRequest = {
       name: formData.name,
-      fatherId: formData.fatherId || null,
-      motherId: formData.motherId || null,
+      fatherId: (formData.fatherId?.value as string) || null,
+      motherId: (formData.motherId?.value as string) || null,
       sexId: formData.sexId?.value as number,
       breeds: formattedBreedsArr,
       purchaseDate: formData.purchaseDate || null,
@@ -142,6 +144,7 @@ const CreateCattle = () => {
                 setValue={setValue}
                 setError={setError}
                 errors={errors}
+                watch={watch}
                 clearErrors={clearErrors}
                 getValues={getValues}
               />

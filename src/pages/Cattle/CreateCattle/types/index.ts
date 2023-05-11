@@ -8,8 +8,8 @@ export type BreedFormData = {
 
 export type CreateCattleFormData = {
   name: string;
-  fatherId: string | null;
-  motherId: string | null;
+  fatherId: DataArr | null;
+  motherId: DataArr | null;
   sexId: DataArr | null;
   breeds: BreedFormData[];
   breedName: string;
@@ -26,7 +26,7 @@ export type CreateCattleFormData = {
   causeOfDeath: string;
   dateOfSale: Date | null;
   priceInCentsInReais: number | null;
-  ownerName: string;
+  ownerName: DataArr | null;
   ownersIds: string[];
 };
 
