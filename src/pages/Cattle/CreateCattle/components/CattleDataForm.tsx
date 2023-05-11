@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { FieldErrors, UseFormRegister, UseFormSetValue } from "react-hook-form";
+import { FieldErrors, UseFormRegister, UseFormSetValue, UseFormWatch } from "react-hook-form";
 import Text from "../../../../components/Common/Input/Text";
 import AutoComplete from "../../../../components/Common/Input/AutoComplete";
 import DatePickerInput from "../../../../components/Common/Input/DatePickerInput";
 import Dropdown from "../../../../components/Common/Input/Dropdown";
 import { sexArrData } from "../../../../constantsDropdownArrayData";
 import { CreateCattleFormData } from "../types";
-import {
-  GetMaleCattleByName,
-  GetFemaleCattleByName,
-} from "../../../../services/Cattle";
+import { GetMaleCattleByName, GetFemaleCattleByName } from "../../../../services/Cattle";
 import { DataArr } from "../../../../types/dataArr";
 
 type CattleFormDataProps = {
@@ -17,20 +14,13 @@ type CattleFormDataProps = {
   errors: FieldErrors<CreateCattleFormData>;
   setValue: UseFormSetValue<CreateCattleFormData>;
   doesNotKnowDateOfBirth: boolean;
+  watch: UseFormWatch<CreateCattleFormData>;
 };
 
-const CattleDataForm = ({
-  register,
-  errors,
-  setValue,
-  doesNotKnowDateOfBirth,
-}: CattleFormDataProps) => {
+const CattleDataForm = ({ register, errors, setValue, watch, doesNotKnowDateOfBirth }: CattleFormDataProps) => {
   const [cattleFatherArr, setCattleFatherArr] = useState<DataArr[]>([]);
   const [cattleMotherArr, setCattleMotherArr] = useState<DataArr[]>([]);
   const [yearsArr, setYearsArr] = useState<DataArr[]>([]);
-
-  const [selectedItem, setSelectedItem] = useState<DataArr | null>(null);
-  const [selectedYear, setSelectedYear] = useState<DataArr | null>(null);
 
   const onChangeSearchFather = async (searchTerm: string) => {
     if (searchTerm === "") {
@@ -65,13 +55,7 @@ const CattleDataForm = ({
 
   return (
     <div className="flex flex-col gap-3">
-      <Text
-        name="name"
-        register={register}
-        placeholder="Amora"
-        error={errors.name}
-        labelText="Nome do animal"
-      />
+      <Text name="name" register={register} placeholder="Amora" error={errors.name} labelText="Nome do animal" />
       <div className="flex flex-col gap-3 xl:flex-row">
         <AutoComplete
           name="fatherId"
@@ -102,8 +86,7 @@ const CattleDataForm = ({
           register={register}
           setValue={setValue}
           error={errors.sexId}
-          selectedItem={selectedItem}
-          setSelectedItem={setSelectedItem}
+          watch={watch}
           dataArr={sexArrData}
         />
         <DatePickerInput
@@ -123,8 +106,7 @@ const CattleDataForm = ({
           name="yearOfBirth"
           placeholder="2021"
           labelText="Ano de nascimento"
-          selectedItem={selectedYear}
-          setSelectedItem={setSelectedYear}
+          watch={watch}
           dataArr={yearsArr}
           setValue={setValue}
         />

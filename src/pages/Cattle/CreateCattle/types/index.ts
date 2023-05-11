@@ -1,3 +1,5 @@
+import { DataArr } from "../../../../types/dataArr";
+
 export type BreedFormData = {
   breedId: string;
   name: string;
@@ -8,7 +10,7 @@ export type CreateCattleFormData = {
   name: string;
   fatherId: string | null;
   motherId: string | null;
-  sexId: 0 | 1;
+  sexId: DataArr | null;
   breeds: BreedFormData[];
   breedName: string;
   doesNotKnowDateOfBirth: boolean;
@@ -17,7 +19,7 @@ export type CreateCattleFormData = {
   purchaseDate: Date | null;
   conceptionDateDate: Date | null;
   dateOfBirth: Date | null;
-  yearOfBirth: number;
+  yearOfBirth: DataArr | null;
   image: string | null;
   isDead: "Não" | "Sim";
   dateOfDeath: Date | null;
@@ -37,7 +39,7 @@ export type CreateCattleFormDataRequest = {
   name: string;
   fatherId: string | null;
   motherId: string | null;
-  sexId: 0 | 1;
+  sexId: number;
   breeds: BreedFormDataRequest[];
   purchaseDate: Date | null;
   dateOfBirth: Date | null;
