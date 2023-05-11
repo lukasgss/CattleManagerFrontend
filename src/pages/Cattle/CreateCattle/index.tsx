@@ -35,6 +35,8 @@ const CreateCattle = () => {
     defaultValues: {
       breeds: [],
       ownersIds: [],
+      yearOfBirth: null,
+      sexId: null,
       wasBought: "Não",
       isDead: "Não",
     },
@@ -66,7 +68,7 @@ const CreateCattle = () => {
 
     const yearOfBirth = formData.dateOfBirth
       ? parseInt(formData.dateOfBirth.toString().split("-")[0], 10)
-      : formData.yearOfBirth;
+      : (formData.yearOfBirth?.value as number);
 
     const ownersIds = [...formData.ownersIds, localStorage.getItem("userId")] as string[];
 
@@ -74,7 +76,7 @@ const CreateCattle = () => {
       name: formData.name,
       fatherId: formData.fatherId || null,
       motherId: formData.motherId || null,
-      sexId: formData.sexId,
+      sexId: formData.sexId?.value as number,
       breeds: formattedBreedsArr,
       purchaseDate: formData.purchaseDate || null,
       dateOfBirth: formData.dateOfBirth || null,
@@ -111,6 +113,7 @@ const CreateCattle = () => {
             <div className="w-full">
               <CattleDataForm
                 register={register}
+                watch={watch}
                 setValue={setValue}
                 errors={errors}
                 doesNotKnowDateOfBirth={doesNotKnowDateOfBirth}
