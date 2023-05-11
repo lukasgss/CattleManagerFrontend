@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AiOutlineCheckCircle, AiOutlineClose } from "react-icons/ai";
 import { NotificationProps } from "./types";
 
 const SuccessNotification = ({ text, isOpen, setIsOpen }: NotificationProps) => {
-  setTimeout(() => {
-    setIsOpen(false);
-  }, 10000);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsOpen(false);
+    }, 10000);
+
+    return () => clearTimeout(timeout);
+  }, [isOpen]);
 
   return isOpen ? (
     <div
