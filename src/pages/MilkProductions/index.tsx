@@ -37,7 +37,7 @@ const MilkProductions = () => {
         />
 
         <SuccessNotification
-          text="Gado cadastrado com sucesso."
+          text="Produdução de leite cadastrada com sucesso."
           isOpen={successNotificationIsOpen}
           setIsOpen={setSuccessNotificationIsOpen}
         />
