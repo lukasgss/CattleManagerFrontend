@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { UseFormRegister, UseFormSetValue } from "react-hook-form";
+import { UseFormRegister, UseFormSetValue, UseFormWatch } from "react-hook-form";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BsCheck2, BsChevronDown } from "react-icons/bs";
 import { DataArr } from "../../../types/dataArr";
@@ -13,10 +13,9 @@ type DropdownWithSearchProps = {
   error?: any;
   name: string;
   placeholder?: string;
+  watch: UseFormWatch<any>;
   dataArr: DataArr[];
   labelText: string;
-  selectedItem: DataArr | null;
-  setSelectedItem: React.Dispatch<React.SetStateAction<DataArr | null>>;
 };
 
 const DropdownWithSearch = ({
@@ -25,28 +24,26 @@ const DropdownWithSearch = ({
   name,
   labelText,
   dataArr,
+  watch,
   placeholder,
   error,
-  selectedItem,
-  setSelectedItem,
 }: DropdownWithSearchProps) => {
   const [expanded, setExpanded] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
   const dropdownRef = useRef<any>(null);
 
+  const fieldValue: DataArr | null = watch(name);
+
   const filteredData =
     searchValue.length > 0
       ? dataArr.filter((data) =>
-          removeDiacritics(data.text.toLowerCase()).includes(
-            removeDiacritics(searchValue.toLowerCase())
-          )
+          removeDiacritics(data.text.toLowerCase()).includes(removeDiacritics(searchValue.toLowerCase()))
         )
       : dataArr;
 
   const selectItem = (item: DataArr) => {
-    setValue(name as any, item.text);
-    setSelectedItem(item);
+    setValue(name, item);
     setExpanded(false);
   };
 
@@ -64,7 +61,7 @@ const DropdownWithSearch = ({
         <div className="w-full relative">
           <input
             type="text"
-            value={selectedItem?.text ?? ""}
+            value={fieldValue?.text ?? ""}
             placeholder={placeholder}
             {...register(name)}
             className={`w-full bg-[var(--primary-light-gray)] px-5 pr-10 py-3 border rounded-xl focus:outline--gray-500
@@ -73,13 +70,13 @@ const DropdownWithSearch = ({
              }`}
           />
           <BsChevronDown
-            className={`absolute top-3 right-3 w-5 h-5 transition duration-300 ${
-              expanded ? "rotate-180" : ""
-            }`}
+            className={`absolute top-3 right-3 w-5 h-5 transition duration-300 ${expanded ? "rotate-180" : ""}`}
           />
         </div>
       </button>
+
       {error ? <FormErrorMessage error={error.message} /> : null}
+
       {expanded ? (
         <div className="relative">
           <DetectClickOutside
@@ -112,24 +109,16 @@ const DropdownWithSearch = ({
                         type="button"
                         aria-label="selecionar"
                         className={`px-3 py-1 w-full flex text-left hover:bg-[var(--secondary-light-gray)] hover:text-[var(--primary-black)] ${
-                          selectedItem?.text === data.text
-                            ? "bg-[var(--secondary-light-gray)]"
-                            : ""
+                          fieldValue?.text === data.text ? "bg-[var(--secondary-light-gray)]" : ""
                         }`}
                         onClick={() => selectItem(data)}
                       >
-                        {selectedItem?.value === data.value ? (
+                        {fieldValue?.value === data.value ? (
                           <span>
                             <BsCheck2 className="w-5 h-5 hover:cursor-pointer mr-2" />
                           </span>
                         ) : null}
-                        <span
-                          className={`${
-                            selectedItem?.text === data.text
-                              ? "poppins-semi-bold"
-                              : "pl-7"
-                          }`}
-                        >
+                        <span className={`${fieldValue?.text === data.text ? "poppins-semi-bold" : "pl-7"}`}>
                           {data.text}
                         </span>
                       </button>
