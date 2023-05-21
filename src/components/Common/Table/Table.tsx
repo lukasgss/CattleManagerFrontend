@@ -40,7 +40,7 @@ export default function Table({
         {!isLoading && !isError && tableData.length > 0 ? (
           <tbody>
             {tableData?.map((data) => (
-              <tr key={data.id} className="border-b-1 even:bg-[#fafbfc]">
+              <tr key={data.id} className="border-b-1 even:bg-[#eaecee]">
                 {tableDataKeys
                   ? tableDataKeys.map((tableColumn) => <td key={tableColumn}>{data[tableColumn]}</td>)
                   : Object.values(data).map((tableColumn: any) => <td key={tableColumn}>{tableColumn}</td>)}
