@@ -12,13 +12,7 @@ type CurrencyProps = {
   error: FieldError | undefined;
 };
 
-const Currency = ({
-  name,
-  labelText,
-  placeholder,
-  control,
-  error,
-}: CurrencyProps) => {
+const Currency = ({ name, labelText, placeholder, control, error }: CurrencyProps) => {
   return (
     <div className="flex flex-col gap-0.5">
       <label className="pl-0.5" htmlFor={name}>
@@ -40,9 +34,7 @@ const Currency = ({
               allowNegative={false}
               placeholder={placeholder}
               className={`w-full bg-[var(--primary-light-gray)] px-5 pl-10 py-3 border rounded-xl focus:outline--gray-500
-               border-none focus:ring-0" ${
-                 error ? "border-error focus:outline-[var(--border-error)]" : ""
-               }`}
+               border-none focus:ring-0" ${error ? "border-error focus:outline-[var(--border-error)]" : ""}`}
             />
           )}
         />
