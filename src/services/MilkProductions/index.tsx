@@ -1,6 +1,7 @@
 import { AxiosResponse } from "axios";
 import { MilkProductionData } from "../../pages/MilkProductions/CreateMilkProduction";
 import { API } from "../Api";
+import { DataInMonth } from "../types";
 
 export type MilkProduction = {
   id: string;
@@ -23,4 +24,10 @@ export const CreateNewMilkProduction = (milkProductionData: MilkProductionData) 
 
 export const GetAllMilkProductions = (page: number): Promise<AxiosResponse<PaginatedMilkProduction>> => {
   return API.get(`/milk-productions?page=${page}`);
+};
+
+export const GetTotalMilkProductionsOnPreviousMonths = (
+  previousMonths: number
+): Promise<AxiosResponse<DataInMonth<number>[]>> => {
+  return API.get(`/milk-productions/previous-months?months=${previousMonths}`);
 };

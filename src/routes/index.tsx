@@ -11,6 +11,7 @@ import NotFound from "../pages/NotFound";
 import Home from "../pages/Home";
 import MilkProductions from "../pages/MilkProductions";
 import Cattle from "../pages/Cattle";
+import Dashboard from "../pages/Dashboard";
 
 const AppRoutes = () => {
   return (
@@ -27,6 +28,7 @@ const AppRoutes = () => {
               <Route path="/gado" element={<Cattle />} />
               <Route path="/cadastro-gado" element={<CreateCattle />} />
               <Route path="/producoes-leite" element={<MilkProductions />} />
+              <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/404" element={<NotFound />} />
               <Route path="*" element={<Navigate to="/404" replace />} />
             </Routes>
