@@ -6,6 +6,7 @@ import GeneralDataCard from "./components/GeneralDataCard";
 import TotalMilkProductionPerMonthGraph from "./components/graphs/TotalMilkProductionPerMonthGraph";
 import AmountOfMedicalRecordsPerMonthGraph from "./components/graphs/AmountOfMedicalRecordsPerMonthGraph";
 import { SidebarContext } from "../../contexts/SidebarContext";
+import MilkSalesTotalRevenueInPreviousMonths from "./components/graphs/MilkSalesTotalRevenueInPreviousMonths";
 
 export default function Dashboard() {
   const { sidebarOpen } = useContext(SidebarContext);
@@ -60,6 +61,7 @@ export default function Dashboard() {
         </div>
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-5 mt-5">
           <AmountOfMedicalRecordsPerMonthGraph />
+          <MilkSalesTotalRevenueInPreviousMonths />
         </div>
       </div>
     </MainPage>
